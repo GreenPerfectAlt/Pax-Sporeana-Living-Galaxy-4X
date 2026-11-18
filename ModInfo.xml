@@ -1,214 +1,317 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <mod unique="PaxSporeanaLivingGalaxy4X"
      displayName="Pax Sporeana: Living Galaxy 4X"
-     description="Unified 4X Grand Strategy Overhaul: Player Garrisons, AI Treasuries, 3D Trade Convoys, 10 Philosophy Doctrines, Cluster Colonization, Terraforming &amp; Breakaway Revolutions. Requires UPE."
+     description="UNIFIED 4X GRAND STRATEGY OVERHAUL&#10;&#10;• Economy &amp; Garrisons: Dynamic orbital fleets, AI treasuries &amp; 3D multi-species trade convoys.&#10;• Asymmetrical Lore: 10 philosophy doctrines, Dreadnoughts, Shaman Rebirth &amp; Ecologist Bio-Regen.&#10;• Living Borders: Cluster AI colonization, planetary terraforming &amp; breakaway republics.&#10;&#10;Hover over any option on the left to inspect detailed mechanics! Requires UPE."
      installerSystemVersion="1.0.1.2"
      hasCustomInstaller="true"
      dllsBuild="$SPOREMOD_DLLS_BUILD"
      isExperimental="$SPOREMOD_EXPERIMENTAL">
 
-    <!-- Ядро единого мода -->
     <prerequisite>PaxSporeana4X.dll</prerequisite>
     <prerequisite game="GalacticAdventures">Space-Diplomacy-Overhaul_Main.package</prerequisite>
     <prerequisite game="GalacticAdventures">Space-Warfare-Overhaul_Main.package</prerequisite>
     <prerequisite game="GalacticAdventures">SensibleAIColonization_Main.package</prerequisite>
     <prerequisite game="GalacticAdventures">Space-Diplomacy-Overhaul_SaicPatch_Config.package</prerequisite>
 
-    <!-- Очистка при переустановке -->
+    <componentGroup unique="Space-Diplomacy-And-Warfare-Overhaul_Radius_Config" displayName="🌐 1. War &amp; Trade Radius">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_40Radius_Config" displayName="40 pc (Best FPS)" description="SCOPE: DIPLOMACY, WARS &amp; TRADE&#10;&#10;• Only empires within 40 parsecs simulate wars, alliances, and trade routes.&#10;• Ideal for low-end PCs.">Space-Diplomacy-Overhaul_40Radius_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_60Radius_Config" displayName="60 pc" description="SCOPE: DIPLOMACY, WARS &amp; TRADE&#10;&#10;• Empires within 60 parsecs simulate wars, alliances, and trade routes.">Space-Diplomacy-Overhaul_60Radius_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_100Radius_Config" displayName="100 pc (Default)" description="SCOPE: DIPLOMACY, WARS &amp; TRADE&#10;&#10;• Balanced 4X sector scale within 100 parsecs.&#10;• Recommended for standard gameplay." defaultChecked="true">Space-Diplomacy-Overhaul_100Radius_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_200Radius_Config" displayName="200 pc (Massive)" description="SCOPE: DIPLOMACY, WARS &amp; TRADE&#10;&#10;• Galactic arm simulation within 200 parsecs.&#10;• High CPU usage on dense galaxies.">Space-Diplomacy-Overhaul_200Radius_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="SensibleAiColonization_Radius_Config" displayName="🌐 1. Colonize Radius">
+        <component game="GalacticAdventures" unique="SensibleAIColonization_40Radius_Config" displayName="40 pc (Best FPS)" description="SCOPE: AI COLONIZATION &amp; TERRAFORMING&#10;&#10;• Only empires within 40 parsecs of the player colonize new stars or terraform.">SensibleAIColonization_40Radius_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_60Radius_Config" displayName="60 pc" description="SCOPE: AI COLONIZATION &amp; TERRAFORMING&#10;&#10;• Empires within 60 parsecs of the player colonize new stars and terraform.">SensibleAIColonization_60Radius_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_100Radius_Config" displayName="100 pc (Default)" description="SCOPE: AI COLONIZATION &amp; TERRAFORMING&#10;&#10;• Empires within 100 parsecs expand borders in cohesive clusters." defaultChecked="true">SensibleAIColonization_100Radius_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_200Radius_Config" displayName="200 pc (Massive)" description="SCOPE: AI COLONIZATION &amp; TERRAFORMING&#10;&#10;• Empires within 200 parsecs actively expand and terraform planets.">SensibleAIColonization_200Radius_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Diplomacy-Overhaul_ActiveRangeReference_Config" displayName="🌐 1. Range Center">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_HomeworldActiveRangeReference_Config" displayName="Homeworld" description="ACTIVE RANGE ANCHOR&#10;&#10;• Locks simulation center to your Homeworld permanently." defaultChecked="true">Space-Diplomacy-Overhaul_HomeworldActiveRangeReference_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_CurrentPositionActiveRangeReference_Config" displayName="Current Ship Pos" description="ACTIVE RANGE ANCHOR&#10;&#10;• Simulation bubble follows your spaceship across the galaxy.">Space-Diplomacy-Overhaul_CurrentPositionActiveRangeReference_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Diplomacy-Overhaul_EmpireInvalidationDepth_Config" displayName="🌐 1. Save Protection">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_OnlyPlayersInvalidationDepth_Config" displayName="Players Only" description="SAVEGAME EMPIRE SHIELD&#10;&#10;• Ignores only your other save-file empires.">Space-Diplomacy-Overhaul_OnlyPlayersInvalidationDepth_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_DirectRelationsInvalidationDepth_Config" displayName="Players + Direct" description="SAVEGAME EMPIRE SHIELD&#10;&#10;• Ignores your other save-file empires plus their direct allies and enemies." defaultChecked="true">Space-Diplomacy-Overhaul_DirectRelationsInvalidationDepth_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_IndirectRelationsInvalidationDepth_Config" displayName="Players + Indirect" description="SAVEGAME EMPIRE SHIELD&#10;&#10;• Ignores your other save-file empires, direct relations, and secondary relations.">Space-Diplomacy-Overhaul_IndirectRelationsInvalidationDepth_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="FleetScalingGroup" displayName="💰 2. Garrison Scale">
+        <component game="GalacticAdventures" unique="Fleet_02x" displayName="Minimal (0.2x)" description="ORBITAL GARRISON SIZE&#10;&#10;• Lightweight patrols (10-15 vessels max) for low-end PCs.">Fleet_02x.package</component>
+        <component game="GalacticAdventures" unique="Fleet_05x" displayName="Low (0.5x)" description="ORBITAL GARRISON SIZE&#10;&#10;• Small task forces (up to 25 vessels) with minimal FPS impact.">Fleet_05x.package</component>
+        <component game="GalacticAdventures" unique="Fleet_10x" displayName="Normal (1.0x)" description="ORBITAL GARRISON SIZE&#10;&#10;• Balanced 4X Soft-Cap scaling with T-Score, cities, stars &amp; weaponry rank." defaultChecked="true">Fleet_10x.package</component>
+        <component game="GalacticAdventures" unique="Fleet_13x" displayName="Reinforced (1.3x)" description="ORBITAL GARRISON SIZE&#10;&#10;• Fortified orbital bastions (up to 65 vessels on major hubs).">Fleet_13x.package</component>
+        <component game="GalacticAdventures" unique="Fleet_15x" displayName="Ultra (1.5x)" description="ORBITAL GARRISON SIZE&#10;&#10;• Massive sector armadas for epic planetary sieges.">Fleet_15x.package</component>
+    </componentGroup>
+
+    <componentGroup unique="GalacticTradeGroup" displayName="💰 2. Trade &amp; Convoys">
+        <component game="GalacticAdventures" unique="Trade_00x" displayName="Disabled (0.0x)" description="GALACTIC COMMERCE&#10;&#10;• Disables AI trade networks, spice arbitrage, and 3D cargo convoys.">Trade_00x.package</component>
+        <component game="GalacticAdventures" unique="Trade_05x" displayName="Modest (0.5x)" description="GALACTIC COMMERCE&#10;&#10;• Conservative trade profits, compact freighters, up to 3 base routes.">Trade_05x.package</component>
+        <component game="GalacticAdventures" unique="Trade_10x" displayName="Standard (1.0x)" description="GALACTIC COMMERCE&#10;&#10;• Two-way 3D multi-species convoys, plundering, war shock &amp; 5 base routes." defaultChecked="true">Trade_10x.package</component>
+        <component game="GalacticAdventures" unique="Trade_15x" displayName="Booming (1.5x)" description="GALACTIC COMMERCE&#10;&#10;• Dense cargo fleets, high rare-spice arbitrage &amp; up to 8 base routes.">Trade_15x.package</component>
+    </componentGroup>
+
+    <componentGroup unique="FleetUpkeepGroup" displayName="💰 2. Fleet Upkeep">
+        <component game="GalacticAdventures" unique="Upkeep_00x" displayName="Disabled (0.0x)" description="IMPERIAL TREASURY &amp; PAYROLL&#10;&#10;• Free fleets with zero maintenance costs or treasury penalties.">Upkeep_00x.package</component>
+        <component game="GalacticAdventures" unique="Upkeep_05x" displayName="Low (0.5x)" description="IMPERIAL TREASURY &amp; PAYROLL&#10;&#10;• Light payroll every 4 minutes; high local spice self-sufficiency.">Upkeep_05x.package</component>
+        <component game="GalacticAdventures" unique="Upkeep_10x" displayName="Standard (1.0x)" description="IMPERIAL TREASURY &amp; PAYROLL&#10;&#10;• Balanced maintenance every 3 minutes; rare spices &amp; trade offset costs." defaultChecked="true">Upkeep_10x.package</component>
+        <component game="GalacticAdventures" unique="Upkeep_20x" displayName="Hardcore (2.0x)" description="IMPERIAL TREASURY &amp; PAYROLL&#10;&#10;• Strict budget every 2 minutes; overextended empires risk bankruptcy fast.">Upkeep_20x.package</component>
+    </componentGroup>
+
+    <componentGroup unique="ColonialRebellionsGroup" displayName="⚡ 3. Rebellions">
+        <component game="GalacticAdventures" unique="Rebellion_Disabled" displayName="Disabled (0.0x)" description="REBELLIONS &amp; SECESSIONS&#10;&#10;• 100% loyal fleets: disables player/AI garrison mutinies, Zealot Schisms, and star secessions.">Rebel_00x.package</component>
+        <component game="GalacticAdventures" unique="Rebellion_Low" displayName="Stable (0.5x)" description="REBELLIONS &amp; SECESSIONS&#10;&#10;• Mild unrest: rare mutinies, 120s Zealot Schisms, and breakaway republics in 8+ star bankrupt empires.">Rebel_05x.package</component>
+        <component game="GalacticAdventures" unique="Rebellion_Enabled" displayName="Standard (1.0x)" description="REBELLIONS &amp; SECESSIONS&#10;&#10;• Full 4X politics: mutinies from bankruptcy/losses, 240s Zealot Schisms, SOS alerts &amp; secessions in 6+ star giants." defaultChecked="true">Rebel_10x.package</component>
+        <component game="GalacticAdventures" unique="Rebellion_Anarchy" displayName="Anarchy (2.0x)" description="REBELLIONS &amp; SECESSIONS&#10;&#10;• Volatile galaxy: double mutiny rates, 360s Zealot Schisms, frequent SOS uprisings &amp; secessions from 5+ star empires.">Rebel_20x.package</component>
+    </componentGroup>
+
+    <componentGroup unique="CityUnrestGroup" displayName="⚡ 3. City Unrest">
+        <component game="GalacticAdventures" unique="Unrest_00x" displayName="Ignored (0.0x)" description="CITY UNREST &amp; STRIKES&#10;&#10;• Unhappy citizens and excess factories never slow down shipyards or provoke strikes.">Unrest_00x.package</component>
+        <component game="GalacticAdventures" unique="Unrest_05x" displayName="Mild (0.5x)" description="CITY UNREST &amp; STRIKES&#10;&#10;• Minor shipyard slowdowns and low strike pressure from unhappy industrial cities.">Unrest_05x.package</component>
+        <component game="GalacticAdventures" unique="Unrest_10x" displayName="Standard (1.0x)" description="CITY UNREST &amp; STRIKES&#10;&#10;• Factory sweatshops and blockades slow shipyards and spark Scientist/Ecologist wartime strikes." defaultChecked="true">Unrest_10x.package</component>
+        <component game="GalacticAdventures" unique="Unrest_20x" displayName="Volatile (2.0x)" description="CITY UNREST &amp; STRIKES&#10;&#10;• Neglected factory colonies rapidly erupt into shipyard paralysis and orbital mutinies.">Unrest_20x.package</component>
+    </componentGroup>
+
+    <componentGroup unique="ColonyGadgetsGroup" displayName="⚡ 3. Gadgets &amp; Lore">
+        <component game="GalacticAdventures" unique="Gadget_00x" displayName="Vanilla (0.0x)" description="COLONY GADGETS &amp; PHILOSOPHY LORE&#10;&#10;• Disables custom gadget synergies, Uber-Dreadnoughts, Embassies, Shaman Astral Wardens/Rebirth &amp; Ecologist Bio-Regen.">Gadget_00x.package</component>
+        <component game="GalacticAdventures" unique="Gadget_05x" displayName="Moderate (0.5x)" description="COLONY GADGETS &amp; PHILOSOPHY LORE&#10;&#10;• Half-strength bonuses for planetary buildings, riot-control tools, Shaman portals &amp; Ecologist regeneration.">Gadget_05x.package</component>
+        <component game="GalacticAdventures" unique="Gadget_10x" displayName="Standard (1.0x)" description="COLONY GADGETS &amp; PHILOSOPHY LORE&#10;&#10;• Full 4X synergy: Spice Depots, Uber-Dreadnoughts, Embassies, Shaman Astral Nexus &amp; Rebirth, Ecologist Bio-Regen &amp; Necrosis." defaultChecked="true">Gadget_10x.package</component>
+        <component game="GalacticAdventures" unique="Gadget_15x" displayName="Amplified (1.5x)" description="COLONY GADGETS &amp; PHILOSOPHY LORE&#10;&#10;• Maximum tactical impact from colonization buildings, ship siege tools &amp; philosophy lore abilities.">Gadget_15x.package</component>
+    </componentGroup>
+
+    <componentGroup unique="SensibleAiColonization_Speed_Config" displayName="🚀 4. Colonize Speed">
+        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelySlowSpeed_Config" displayName="Extremely Slow" description="AI EXPANSION PACE&#10;&#10;• Empires take ~5 hours on average to reach 13 star systems.">SensibleAIColonization_ExtremelySlowSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_VerySlowSpeed_Config" displayName="Very Slow" description="AI EXPANSION PACE&#10;&#10;• Empires take ~3 hours on average to reach 13 star systems.">SensibleAIColonization_VerySlowSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_SlowSpeed_Config" displayName="Slow" description="AI EXPANSION PACE&#10;&#10;• Empires take ~2 hours on average to reach 13 star systems.">SensibleAIColonization_SlowSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_NormalSpeed_Config" displayName="Normal (Default)" description="AI EXPANSION PACE&#10;&#10;• Balanced cluster growth: ~1 hour 30 minutes to reach 13 star systems." defaultChecked="true">SensibleAIColonization_NormalSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_FastSpeed_Config" displayName="Fast" description="AI EXPANSION PACE&#10;&#10;• Empires take ~1 hour on average to reach 13 star systems.">SensibleAIColonization_FastSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_VeryFastSpeed_Config" displayName="Very Fast" description="AI EXPANSION PACE&#10;&#10;• Empires take ~40 minutes on average to reach 13 star systems.">SensibleAIColonization_VeryFastSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelyFastSpeed_Config" displayName="Extremely Fast" description="AI EXPANSION PACE&#10;&#10;• Rapid galactic land-grab: ~30 minutes to reach 13 star systems.">SensibleAIColonization_ExtremelyFastSpeed_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="SensibleAiColonization_IntraSystemColonization_Config" displayName="🚀 4. Intra-System">
+        <component game="GalacticAdventures" unique="SensibleAiColonization_DisabledIntraSystemColonization_Config" displayName="Disabled" description="MULTI-PLANET SYSTEMS&#10;&#10;• Empires will not colonize extra planets inside already owned systems.">SensibleAiColonization_DisabledIntraSystemColonization_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAiColonization_OnlyHabitablePlanetsIntraSystemColonization_Config" displayName="Only Habitable" description="MULTI-PLANET SYSTEMS&#10;&#10;• Inside owned systems, empires only colonize habitable (T1-T3) worlds." defaultChecked="true">SensibleAiColonization_OnlyHabitablePlanetsIntraSystemColonization_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAiColonization_AllPlanetsIntraSystemColonization_Config" displayName="Any Planet" description="MULTI-PLANET SYSTEMS&#10;&#10;• Inside owned systems, empires can colonize any planet, including T0.">SensibleAiColonization_AllPlanetsIntraSystemColonization_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="SensibleAiColonization_Terraforming_Config" displayName="🚀 4. Terraform Scope">
+        <component game="GalacticAdventures" unique="SensibleAIColonization_NoTerraforming_Config" displayName="Disabled" description="AI PLANETARY TERRAFORMING&#10;&#10;• AI empires will never terraform their planets.">SensibleAIColonization_NoTerraforming_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_GreenOrbitTerraforming_Config" displayName="Green Orbit Only" description="AI PLANETARY TERRAFORMING&#10;&#10;• Empires only terraform planets located in green habitable orbits.">SensibleAIColonization_GreenOrbitTerraforming_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_GreenOrbitGoodSpiceTerraforming_Config" displayName="Green / Rare Spice" description="AI PLANETARY TERRAFORMING&#10;&#10;• Empires terraform green-orbit worlds or planets with high-value spice." defaultChecked="true">SensibleAIColonization_GreenOrbitGoodSpiceTerraforming_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_AllPlanetsTerraforming_Config" displayName="Any Planet" description="AI PLANETARY TERRAFORMING&#10;&#10;• Empires actively terraform any colonized planet up to T3.">SensibleAIColonization_AllPlanetsTerraforming_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="SensibleAiColonization_TerraformingSpeed_Config" displayName="🚀 4. Terraform Speed">
+        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelySlowTerraformingSpeed_Config" displayName="Extremely Slow" description="TERRAFORMING PACE&#10;&#10;• ~1 planet terraformed every 5 hours per empire.">SensibleAIColonization_ExtremelySlowTerraformingSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_VerySlowTerraformingSpeed_Config" displayName="Very Slow" description="TERRAFORMING PACE&#10;&#10;• ~1 planet terraformed every 3 hours per empire.">SensibleAIColonization_VerySlowTerraformingSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_SlowTerraformingSpeed_Config" displayName="Slow" description="TERRAFORMING PACE&#10;&#10;• ~1 planet terraformed every 2 hours per empire.">SensibleAIColonization_SlowTerraformingSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_NormalTerraformingSpeed_Config" displayName="Normal (Default)" description="TERRAFORMING PACE&#10;&#10;• Balanced ecological development: ~1 planet every 45 minutes." defaultChecked="true">SensibleAIColonization_NormalTerraformingSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_FastTerraformingSpeed_Config" displayName="Fast" description="TERRAFORMING PACE&#10;&#10;• ~1 planet terraformed every 30 minutes per empire.">SensibleAIColonization_FastTerraformingSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_VeryFastTerraformingSpeed_Config" displayName="Very Fast" description="TERRAFORMING PACE&#10;&#10;• ~1 planet terraformed every 20 minutes per empire.">SensibleAIColonization_VeryFastTerraformingSpeed_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelyFastTerraformingSpeed_Config" displayName="Extremely Fast" description="TERRAFORMING PACE&#10;&#10;• Rapid garden worlds: ~1 planet every 10 minutes per empire.">SensibleAIColonization_ExtremelyFastTerraformingSpeed_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="SensibleAiColonization_DisabledPreSpaceColonizationRule_Config" displayName="🚀 4. Tribes &amp; Civs">
+        <component game="GalacticAdventures" unique="SensibleAIColonization_DisabledPreSpaceColonizationRule_Config" displayName="Protected (Off)" description="PRE-SPACE SPECIES PROTECTION&#10;&#10;• AI empires will never colonize stars containing tribes or civilizations." defaultChecked="true">SensibleAIColonization_DisabledPreSpaceColonizationRule_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_BasedOnEmpireArchetypePreSpaceColonizationRule_Config" displayName="By Archetype" description="PRE-SPACE SPECIES PROTECTION&#10;&#10;• Warriors, Scientists &amp; Zealots conquer tribes/civs.&#10;• Traders colonize tribe stars only; peaceful empires respect them.">SensibleAIColonization_BasedOnEmpireArchetypePreSpaceColonizationRule_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_UnrestrictedPreSpaceColonizationRule_Config" displayName="Unrestricted" description="PRE-SPACE SPECIES PROTECTION&#10;&#10;• All AI empires can colonize star systems containing tribes or civilizations.">SensibleAIColonization_UnrestrictedPreSpaceColonizationRule_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="SensibleAiColonization_PlayerExpansion_Config" displayName="🚀 4. Auto-Governor">
+        <component game="GalacticAdventures" unique="SensibleAIColonization_DisabledPlayerExpansion_Config" displayName="Manual (Default)" description="PLAYER EMPIRE AUTOMATION&#10;&#10;• Your empire only expands and terraforms when you act manually." defaultChecked="true">SensibleAIColonization_DisabledPlayerExpansion_Config.package</component>
+        <component game="GalacticAdventures" unique="SensibleAIColonization_EnabledPlayerExpansion_Config" displayName="Auto-Governor" description="PLAYER EMPIRE AUTOMATION&#10;&#10;• Imperial viceroys automatically colonize nearby stars and terraform owned planets in the background!">SensibleAIColonization_EnabledPlayerExpansion_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Diplomacy-Overhaul_Effects_Config" displayName="⚔️ 5. Diplomacy Depth">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_IntendedEffects_Config" displayName="Rebalanced (4X)" description="DIPLOMATIC MODIFIERS&#10;&#10;• Increases strategic depth and difficulty of maintaining alliances." defaultChecked="true">Space-Diplomacy-Overhaul_IntendedEffects_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_VanillaLikeEffects_Config" displayName="Vanilla-like" description="DIPLOMATIC MODIFIERS&#10;&#10;• Keeps relationship modifiers closer to vanilla Spore.">Space-Diplomacy-Overhaul_Vanilla-LikeEffects_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Diplomacy-Overhaul_Aggressiveness_Config" displayName="⚔️ 5. AI Aggression">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_LowAggressiveness_Config" displayName="Low Aggression" description="WAR DECLARATION FREQUENCY&#10;&#10;• AI empires are more cautious and less likely to declare wars.">Space-Diplomacy-Overhaul_LowAgressiveness_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_NormalAggressiveness_Config" displayName="Normal (Default)" description="WAR DECLARATION FREQUENCY&#10;&#10;• Balanced 4X war frequency across AI empires." defaultChecked="true">Space-Diplomacy-Overhaul_NormalAgressiveness_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_HighAggressiveness_Config" displayName="High Aggression" description="WAR DECLARATION FREQUENCY&#10;&#10;• Hostile galaxy: AI empires frequently wage wars over borders.">Space-Diplomacy-Overhaul_HighAgressiveness_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Warfare-Overhaul_CombatSpaceBalancing_Config" displayName="⚔️ 5. Combat Balance">
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_NoRallyRebalancedCombatSpaceBalancing_Module" displayName="Rebalanced (No Rally)" description="SPACE COMBAT TUNING&#10;&#10;• Rebalances ship health/weapons and disables the Raider Rally tool.">Space-Warfare-Overhaul_NoRallyRebalancedCombatSpaceBalancing_Module.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_RebalancedCombatSpaceBalancing_Module" displayName="Rebalanced Combat" description="SPACE COMBAT TUNING&#10;&#10;• Rebalances ship hulls, weapons, and turrets for 4X warfare." defaultChecked="true">Space-Warfare-Overhaul_RebalancedCombatSpaceBalancing_Module.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_VanillaCombatSpaceBalancing_Module" displayName="Vanilla-like" description="SPACE COMBAT TUNING&#10;&#10;• Keeps weapon stats closer to vanilla (best for custom weapon mods).">Space-Warfare-Overhaul_VanillaCombatSpaceBalancing_Module.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Warfare-Overhaul_AIBomberProductionRate_Config" displayName="⚔️ 5. AI Bomber Rate">
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.15AIBomberProductionRate_Config" displayName="0.15x" description="AI INVASION PRODUCTION&#10;&#10;• AI empires produce 0.15x invasion bombers per spice factory.">Space-Warfare-Overhaul_0.15AIBomberProductionRate_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.30AIBomberProductionRate_Config" displayName="0.30x" description="AI INVASION PRODUCTION&#10;&#10;• AI empires produce 0.30x invasion bombers per spice factory.">Space-Warfare-Overhaul_0.30AIBomberProductionRate_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.50AIBomberProductionRate_Config" displayName="0.50x" description="AI INVASION PRODUCTION&#10;&#10;• AI empires produce 0.50x invasion bombers per spice factory.">Space-Warfare-Overhaul_0.50AIBomberProductionRate_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.80AIBomberProductionRate_Config" displayName="0.80x" description="AI INVASION PRODUCTION&#10;&#10;• AI empires produce 0.80x invasion bombers per spice factory.">Space-Warfare-Overhaul_0.80AIBomberProductionRate_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_1AIBomberProductionRate_Config" displayName="1.0x (Default)" description="AI INVASION PRODUCTION&#10;&#10;• Standard AI invasion bomber production rate per spice factory." defaultChecked="true">Space-Warfare-Overhaul_1AIBomberProductionRate_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_1.5AIBomberProductionRate_Config" displayName="1.5x" description="AI INVASION PRODUCTION&#10;&#10;• AI empires produce 1.5x invasion bombers per spice factory.">Space-Warfare-Overhaul_1.5AIBomberProductionRate_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_2AIBomberProductionRate_Config" displayName="2.0x" description="AI INVASION PRODUCTION&#10;&#10;• AI empires produce 2.0x invasion bombers per spice factory.">Space-Warfare-Overhaul_2AIBomberProductionRate_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_4AIBomberProductionRate_Config" displayName="4.0x" description="AI INVASION PRODUCTION&#10;&#10;• Massive AI armadas: 4.0x invasion bombers per spice factory.">Space-Warfare-Overhaul_4AIBomberProductionRate_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Warfare-Overhaul_PlayerBomberCost_Config" displayName="⚔️ 5. Bomber Cost">
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_20PlayerBomberCost_Config" displayName="20,000 Sporebucks" description="PLAYER INVASION COST&#10;&#10;• Each player invasion bomber costs 20,000 Sporebucks.">Space-Warfare-Overhaul_20PlayerBomberCost_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_50PlayerBomberCost_Config" displayName="50,000 Sporebucks" description="PLAYER INVASION COST&#10;&#10;• Each player invasion bomber costs 50,000 Sporebucks.">Space-Warfare-Overhaul_50PlayerBomberCost_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_75PlayerBomberCost_Config" displayName="75,000 (Default)" description="PLAYER INVASION COST&#10;&#10;• Balanced invasion bomber cost: 75,000 Sporebucks." defaultChecked="true">Space-Warfare-Overhaul_75PlayerBomberCost_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_100PlayerBomberCost_Config" displayName="100,000 Sporebucks" description="PLAYER INVASION COST&#10;&#10;• Each player invasion bomber costs 100,000 Sporebucks.">Space-Warfare-Overhaul_100PlayerBomberCost_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_150PlayerBomberCost_Config" displayName="150,000 Sporebucks" description="PLAYER INVASION COST&#10;&#10;• Elite invasion cost: 150,000 Sporebucks per bomber.">Space-Warfare-Overhaul_150PlayerBomberCost_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Warfare-Overhaul_BuffHostileArchetypes_Config" displayName="⚔️ 5. Hostile Buff">
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_NoBuffHostileArchetypes_Config" displayName="None" description="HOSTILE ARCHETYPE BONUS&#10;&#10;• No extra bomber production buff for hostile archetypes.">Space-Warfare-Overhaul_NoBuffHostileArchetypes_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_SlightBuffHostileArchetypes_Config" displayName="Slight Buff" description="HOSTILE ARCHETYPE BONUS&#10;&#10;• Slight bomber production bonus for hostile AI archetypes." defaultChecked="true">Space-Warfare-Overhaul_SlightBuffHostileArchetypes_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_HighBuffHostileArchetypes_Config" displayName="High Buff" description="HOSTILE ARCHETYPE BONUS&#10;&#10;• High bomber production bonus for hostile AI archetypes.">Space-Warfare-Overhaul_HighBuffHostileArchetypes_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_ExtremeBuffHostileArchetypes_Config" displayName="Extreme Buff" description="HOSTILE ARCHETYPE BONUS&#10;&#10;• Extreme bomber production bonus for hostile AI archetypes.">Space-Warfare-Overhaul_ExtremeBuffHostileArchetypes_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Warfare-Overhaul_BuffWarriorsZealots_Group" displayName="⚔️ 5. Warrior/Zealot">
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_BuffWarriorsZealots_Config" displayName="Yes (Default)" description="MILITARIST DOCTRINE BUFF&#10;&#10;• Warriors and Zealots receive additional fleet strength bonuses." defaultChecked="true">Space-Warfare-Overhaul_BuffWarriorsZealots_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_NoBuffWarriorsZealots_Config" displayName="No" description="MILITARIST DOCTRINE BUFF&#10;&#10;• No extra military strength bonus for Warriors and Zealots.">Space-Warfare-Overhaul_NoBuffWarriorsZealots_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Diplomacy-Overhaul_WarNotifications_Config" displayName="🔔 6. War Alerts">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAll_Config" displayName="All" description="WAR DECLARATION ALERTS&#10;&#10;• Notifications appear for all wars declared across the active sector." defaultChecked="true">Space-Diplomacy-Overhaul_WarNotificationsAll_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAlliesAndEnemies_Config" displayName="Allies &amp; Enemies" description="WAR DECLARATION ALERTS&#10;&#10;• Notifications appear when your allies or enemies declare war.">Space-Diplomacy-Overhaul_WarNotificationsAlliesAndEnemies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAllies_Config" displayName="Allies Only" description="WAR DECLARATION ALERTS&#10;&#10;• Notifications appear only when your allies declare war.">Space-Diplomacy-Overhaul_WarNotificationsAllies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsEnemies_Config" displayName="Enemies Only" description="WAR DECLARATION ALERTS&#10;&#10;• Notifications appear only when your enemies declare war.">Space-Diplomacy-Overhaul_WarNotificationsEnemies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsNone_Config" displayName="None" description="WAR DECLARATION ALERTS&#10;&#10;• Disables pop-up notifications for AI war declarations.">Space-Diplomacy-Overhaul_WarNotificationsNone_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Diplomacy-Overhaul_AllianceNotifications_Config" displayName="🔔 6. Alliance Alerts">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAll_Config" displayName="All" description="ALLIANCE FORMATION ALERTS&#10;&#10;• Notifications appear for all alliances formed across the active sector." defaultChecked="true">Space-Diplomacy-Overhaul_AllianceNotificationsAll_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAlliesAndEnemies_Config" displayName="Allies &amp; Enemies" description="ALLIANCE FORMATION ALERTS&#10;&#10;• Notifications appear when your allies or enemies form alliances.">Space-Diplomacy-Overhaul_AllianceNotificationsAlliesAndEnemies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAllies_Config" displayName="Allies Only" description="ALLIANCE FORMATION ALERTS&#10;&#10;• Notifications appear only when your allies form alliances.">Space-Diplomacy-Overhaul_AllianceNotificationsAllies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsEnemies_Config" displayName="Enemies Only" description="ALLIANCE FORMATION ALERTS&#10;&#10;• Notifications appear only when your enemies form alliances.">Space-Diplomacy-Overhaul_AllianceNotificationsEnemies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsNone_Config" displayName="None" description="ALLIANCE FORMATION ALERTS&#10;&#10;• Disables pop-up notifications for new AI alliances.">Space-Diplomacy-Overhaul_AllianceNotificationsNone_Config.package</component>
+    </componentGroup>
+
+    <componentGroup unique="Space-Diplomacy-Overhaul_AllianceBreakNotifications_Config" displayName="🔔 6. Break Alerts">
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAll_Config" displayName="All" description="ALLIANCE BREAK ALERTS&#10;&#10;• Notifications appear for all alliances broken across the active sector." defaultChecked="true">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAll_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAlliesAndEnemies_Config" displayName="Allies &amp; Enemies" description="ALLIANCE BREAK ALERTS&#10;&#10;• Notifications appear when your allies or enemies break alliances.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAlliesAndEnemies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAllies_Config" displayName="Allies Only" description="ALLIANCE BREAK ALERTS&#10;&#10;• Notifications appear only when your allies break alliances.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAllies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsEnemies_Config" displayName="Enemies Only" description="ALLIANCE BREAK ALERTS&#10;&#10;• Notifications appear only when your enemies break alliances.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsEnemies_Config.package</component>
+        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsNone_Config" displayName="None" description="ALLIANCE BREAK ALERTS&#10;&#10;• Disables pop-up notifications for broken AI alliances.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsNone_Config.package</component>
+    </componentGroup>
+
     <remove>PaxSporeana4X.dll</remove>
     <remove>Defensive Ships In Player Colonies.dll</remove>
     <remove>Ai Empire Diplomacy War.dll</remove>
     <remove>Ai Empire Colonization.dll</remove>
-    <remove game="GalacticAdventures">*Space-Diplomacy-Overhaul*.package</remove>
-    <remove game="GalacticAdventures">*Space-Warfare-Overhaul*.package</remove>
-    <remove game="GalacticAdventures">*Sensible*Colonization*.package</remove>
-    <remove game="GalacticAdventures">Fleet_*.package</remove>
-    <remove game="GalacticAdventures">Rebel_*.package</remove>
-    <remove game="GalacticAdventures">Upkeep_*.package</remove>
-    <remove game="GalacticAdventures">Unrest_*.package</remove>
-    <remove game="GalacticAdventures">Gadget_*.package</remove>
-    <remove game="GalacticAdventures">Trade_*.package</remove>
-
-    <!-- Радиус симуляции + Центр радиуса + Защита сохранений -->
-    <componentGroup unique="PaxActiveRadiusGroup" displayName="Active Radius">
-        <component game="GalacticAdventures" unique="PaxRadius40" displayName="40 pc (Best FPS)" description="Simulates diplomacy, wars, trade, and colonization within 40 pc.">Space-Diplomacy-Overhaul_40Radius_Config.package
-SensibleAIColonization_40Radius_Config.package</component>
-        <component game="GalacticAdventures" unique="PaxRadius60" displayName="60 pc" description="Simulates diplomacy, wars, trade, and colonization within 60 pc.">Space-Diplomacy-Overhaul_60Radius_Config.package
-SensibleAIColonization_60Radius_Config.package</component>
-        <component game="GalacticAdventures" unique="PaxRadius100" displayName="100 pc (Default)" description="Balanced 4X sector scale within 100 parsecs." defaultChecked="true">Space-Diplomacy-Overhaul_100Radius_Config.package
-SensibleAIColonization_100Radius_Config.package</component>
-        <component game="GalacticAdventures" unique="PaxRadius200" displayName="200 pc (Massive)" description="Simulates empires within 200 parsecs (High CPU).">Space-Diplomacy-Overhaul_200Radius_Config.package
-SensibleAIColonization_200Radius_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Diplomacy-Overhaul_ActiveRangeReference_Config" displayName="Active Range Center">
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_HomeworldActiveRangeReference_Config" displayName="Homeworld" description="Uses the player's homeworld as the center of the active range." defaultChecked="true">Space-Diplomacy-Overhaul_HomeworldActiveRangeReference_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_CurrentPositionActiveRangeReference_Config" displayName="Current Position" description="Uses the player's current position as the center of the active range.">Space-Diplomacy-Overhaul_CurrentPositionActiveRangeReference_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Diplomacy-Overhaul_EmpireInvalidationDepth_Config" displayName="Player Exclusion Depth">
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_OnlyPlayersInvalidationDepth_Config" displayName="Players Only" description="Ignores only other save-file player empires.">Space-Diplomacy-Overhaul_OnlyPlayersInvalidationDepth_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_DirectRelationsInvalidationDepth_Config" displayName="Players + Direct" description="Ignores other players' empires and their direct allies and enemies." defaultChecked="true">Space-Diplomacy-Overhaul_DirectRelationsInvalidationDepth_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_IndirectRelationsInvalidationDepth_Config" displayName="Players + Indirect" description="Ignores other players' empires, direct relations, and secondary relations.">Space-Diplomacy-Overhaul_IndirectRelationsInvalidationDepth_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="FleetScalingGroup" displayName="Fleet Scaling">
-        <component game="GalacticAdventures" unique="Fleet_02x" displayName="Minimal (0.2x)" description="Lightweight garrisons (10-15 vessels max) for low-end PCs.">Fleet_02x.package</component>
-        <component game="GalacticAdventures" unique="Fleet_05x" displayName="Low (0.5x)" description="Small task forces (up to 25 vessels) with minimal performance impact.">Fleet_05x.package</component>
-        <component game="GalacticAdventures" unique="Fleet_10x" displayName="Normal (1.0x)" description="Balanced 4X gameplay: dynamic Soft-Cap scaling with T-Score, Unlimited-Colony cities, stars, and weaponry rank." defaultChecked="true">Fleet_10x.package</component>
-        <component game="GalacticAdventures" unique="Fleet_13x" displayName="Reinforced (1.3x)" description="Fortified orbital garrisons (up to 65 vessels on developed hubs).">Fleet_13x.package</component>
-        <component game="GalacticAdventures" unique="Fleet_15x" displayName="Ultra (1.5x)" description="Massive sector armadas for high-end systems and intense planetary sieges.">Fleet_15x.package</component>
-    </componentGroup>
-
-    <componentGroup unique="GalacticTradeGroup" displayName="Galactic Trade &amp; Convoys">
-        <component game="GalacticAdventures" unique="Trade_00x" displayName="Disabled (0.0x)" description="Disables dynamic AI trade networks, spice arbitrage profits, war deterrence, and 3D orbital cargo convoys.">Trade_00x.package</component>
-        <component game="GalacticAdventures" unique="Trade_05x" displayName="Modest (0.5x)" description="Conservative trade income, compact 3D freighter wings, and up to 3 base routes per empire.">Trade_05x.package</component>
-        <component game="GalacticAdventures" unique="Trade_10x" displayName="Standard (1.0x)" description="Living spaceports: two-way player &amp; multi-species 3D convoys, convoy plundering, war shock, and 5 base routes per empire." defaultChecked="true">Trade_10x.package</component>
-        <component game="GalacticAdventures" unique="Trade_15x" displayName="Booming (1.5x)" description="Bustling galactic hubs: dense 3D cargo fleets, high-yield rare spice arbitrage, and up to 8 base routes per empire.">Trade_15x.package</component>
-    </componentGroup>
-
-    <componentGroup unique="FleetUpkeepGroup" displayName="Fleet Upkeep">
-        <component game="GalacticAdventures" unique="Upkeep_00x" displayName="Disabled (0.0x)" description="Free peacetime garrisons with zero periodic Sporebuck maintenance costs.">Upkeep_00x.package</component>
-        <component game="GalacticAdventures" unique="Upkeep_05x" displayName="Low (0.5x)" description="Light payroll every 4 minutes; high local spice self-sufficiency for player and AI treasuries.">Upkeep_05x.package</component>
-        <component game="GalacticAdventures" unique="Upkeep_10x" displayName="Standard (1.0x)" description="Balanced maintenance every 3 minutes; rare spices and trade offset garrison expenses." defaultChecked="true">Upkeep_10x.package</component>
-        <component game="GalacticAdventures" unique="Upkeep_20x" displayName="Hardcore (2.0x)" description="Strict military budget every 2 minutes; overextended empires without trade risk bankruptcy fast.">Upkeep_20x.package</component>
-    </componentGroup>
-
-    <componentGroup unique="ColonialRebellionsGroup" displayName="Rebellions &amp; Secessions">
-        <component game="GalacticAdventures" unique="Rebellion_Disabled" displayName="Disabled (0.0x)" description="100% loyal fleets: disables player/AI garrison mutinies, Zealot Schisms, and background star secessions.">Rebel_00x.package</component>
-        <component game="GalacticAdventures" unique="Rebellion_Low" displayName="Stable (0.5x)" description="Mild unrest: rare mutinies, shorter 120s Zealot Schisms, and breakaway republics only in 8+ star bankrupt empires.">Rebel_05x.package</component>
-        <component game="GalacticAdventures" unique="Rebellion_Enabled" displayName="Standard (1.0x)" description="Full 4X politics: mutinies from bankruptcy/losses, 240s Zealot Schism cascades, SOS alerts, and secessions in 6+ star giants." defaultChecked="true">Rebel_10x.package</component>
-        <component game="GalacticAdventures" unique="Rebellion_Anarchy" displayName="Anarchy (2.0x)" description="Volatile galaxy: double mutiny rates, 360s Zealot Schisms, frequent SOS uprisings, and breakaway republics from 5+ star empires.">Rebel_20x.package</component>
-    </componentGroup>
-
-    <componentGroup unique="CityUnrestGroup" displayName="City Unrest Impact">
-        <component game="GalacticAdventures" unique="Unrest_00x" displayName="Ignored (0.0x)" description="Unhappy citizens and excess factories never slow down shipyards or provoke strikes.">Unrest_00x.package</component>
-        <component game="GalacticAdventures" unique="Unrest_05x" displayName="Mild (0.5x)" description="Minor shipyard slowdowns and low strike pressure from unhappy industrial cities.">Unrest_05x.package</component>
-        <component game="GalacticAdventures" unique="Unrest_10x" displayName="Standard (1.0x)" description="Factory sweatshops and blockades slow shipyards and spark Scientist/Ecologist wartime strikes." defaultChecked="true">Unrest_10x.package</component>
-        <component game="GalacticAdventures" unique="Unrest_20x" displayName="Volatile (2.0x)" description="Neglected factory colonies rapidly erupt into shipyard paralysis and orbital mutinies.">Unrest_20x.package</component>
-    </componentGroup>
-
-    <componentGroup unique="ColonyGadgetsGroup" displayName="Colony Gadgets &amp; Lore">
-        <component game="GalacticAdventures" unique="Gadget_00x" displayName="Vanilla (0.0x)" description="Disables custom gadget synergies, Uber-Dreadnoughts, Embassies, Shaman Astral Wardens/Rebirth, and Ecologist Bio-Regen.">Gadget_00x.package</component>
-        <component game="GalacticAdventures" unique="Gadget_05x" displayName="Moderate (0.5x)" description="Half-strength bonuses for planetary buildings, riot-control tools, Shaman portals, and Ecologist regeneration.">Gadget_05x.package</component>
-        <component game="GalacticAdventures" unique="Gadget_10x" displayName="Standard (1.0x)" description="Full 4X synergy: Spice Depots, Uber-Dreadnoughts, Embassies, Shaman Astral Nexus &amp; Rebirth, Ecologist Bio-Regen &amp; Necrosis." defaultChecked="true">Gadget_10x.package</component>
-        <component game="GalacticAdventures" unique="Gadget_15x" displayName="Amplified (1.5x)" description="Maximum tactical impact from colonization buildings, ship siege tools, and philosophy lore abilities.">Gadget_15x.package</component>
-    </componentGroup>
-
-    <componentGroup unique="SensibleAiColonization_Speed_Config" displayName="AI Colonization Speed">
-        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelySlowSpeed_Config" displayName="Extremely Slow" description="On average, empires will take 5 hours to reach 13 systems.">SensibleAIColonization_ExtremelySlowSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_VerySlowSpeed_Config" displayName="Very Slow" description="On average, empires will take 3 hours to reach 13 systems.">SensibleAIColonization_VerySlowSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_SlowSpeed_Config" displayName="Slow" description="On average, empires will take 2 hours to reach 13 systems.">SensibleAIColonization_SlowSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_NormalSpeed_Config" displayName="Normal (Default)" description="On average, empires will take 1 hour and 30 minutes to reach 13 systems." defaultChecked="true">SensibleAIColonization_NormalSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_FastSpeed_Config" displayName="Fast" description="On average, empires will take 1 hour to reach 13 systems.">SensibleAIColonization_FastSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_VeryFastSpeed_Config" displayName="Very Fast" description="On average, empires will take 40 minutes to reach 13 systems.">SensibleAIColonization_VeryFastSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelyFastSpeed_Config" displayName="Extremely Fast" description="On average, empires will take 30 minutes to reach 13 systems.">SensibleAIColonization_ExtremelyFastSpeed_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="SensibleAiColonization_IntraSystemColonization_Config" displayName="Intra-System Colonization">
-        <component game="GalacticAdventures" unique="SensibleAiColonization_DisabledIntraSystemColonization_Config" displayName="Disabled" description="Empires will not colonize planets in already owned systems.">SensibleAiColonization_DisabledIntraSystemColonization_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAiColonization_OnlyHabitablePlanetsIntraSystemColonization_Config" displayName="Only Habitable" description="When colonizing within an already owned system, empires will only colonize habitable planets." defaultChecked="true">SensibleAiColonization_OnlyHabitablePlanetsIntraSystemColonization_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAiColonization_AllPlanetsIntraSystemColonization_Config" displayName="Any Planet" description="When colonizing within an already owned system, empires can colonize any planet.">SensibleAiColonization_AllPlanetsIntraSystemColonization_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="SensibleAiColonization_Terraforming_Config" displayName="AI Terraforming Scope">
-        <component game="GalacticAdventures" unique="SensibleAIColonization_NoTerraforming_Config" displayName="Disabled" description="Empires will not terraform their planets.">SensibleAIColonization_NoTerraforming_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_GreenOrbitTerraforming_Config" displayName="Only Green Orbit" description="Empires will only terraform planets with green orbits.">SensibleAIColonization_GreenOrbitTerraforming_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_GreenOrbitGoodSpiceTerraforming_Config" displayName="Green Orbit / Rare Spice" description="Empires will only terraform planets with green orbits or planets with high-value spice." defaultChecked="true">SensibleAIColonization_GreenOrbitGoodSpiceTerraforming_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_AllPlanetsTerraforming_Config" displayName="Any Planet" description="Empires can terraform any planet.">SensibleAIColonization_AllPlanetsTerraforming_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="SensibleAiColonization_TerraformingSpeed_Config" displayName="AI Terraforming Speed">
-        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelySlowTerraformingSpeed_Config" displayName="Extremely Slow" description="On average, empires will terraform 1 planet every 5 hours.">SensibleAIColonization_ExtremelySlowTerraformingSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_VerySlowTerraformingSpeed_Config" displayName="Very Slow" description="On average, empires will terraform 1 planet every 3 hours.">SensibleAIColonization_VerySlowTerraformingSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_SlowTerraformingSpeed_Config" displayName="Slow" description="On average, empires will terraform 1 planet every 2 hours.">SensibleAIColonization_SlowTerraformingSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_NormalTerraformingSpeed_Config" displayName="Normal (Default)" description="On average, empires will terraform 1 planet every 45 minutes." defaultChecked="true">SensibleAIColonization_NormalTerraformingSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_FastTerraformingSpeed_Config" displayName="Fast" description="On average, empires will terraform 1 planet every 30 minutes.">SensibleAIColonization_FastTerraformingSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_VeryFastTerraformingSpeed_Config" displayName="Very Fast" description="On average, empires will terraform 1 planet every 20 minutes.">SensibleAIColonization_VeryFastTerraformingSpeed_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_ExtremelyFastTerraformingSpeed_Config" displayName="Extremely Fast" description="On average, empires will terraform 1 planet every 10 minutes.">SensibleAIColonization_ExtremelyFastTerraformingSpeed_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="SensibleAiColonization_DisabledPreSpaceColonizationRule_Config" displayName="Tribes &amp; Civs Rule">
-        <component game="GalacticAdventures" unique="SensibleAIColonization_DisabledPreSpaceColonizationRule_Config" displayName="Disabled" description="Empires will not colonize star systems containing tribes or civilizations." defaultChecked="true">SensibleAIColonization_DisabledPreSpaceColonizationRule_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_BasedOnEmpireArchetypePreSpaceColonizationRule_Config" displayName="By Empire Archetype" description="Warrior, Scientist, and Zealot empires can colonize tribes &amp; civs. Traders colonize tribes only. Peaceful archetypes respect them.">SensibleAIColonization_BasedOnEmpireArchetypePreSpaceColonizationRule_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_UnrestrictedPreSpaceColonizationRule_Config" displayName="Unrestricted" description="All empires can colonize star systems containing tribes or civilizations.">SensibleAIColonization_UnrestrictedPreSpaceColonizationRule_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="SensibleAiColonization_PlayerExpansion_Config" displayName="Player Auto-Expansion">
-        <component game="GalacticAdventures" unique="SensibleAIColonization_DisabledPlayerExpansion_Config" displayName="Disabled (Manual)" description="The player empire will not be affected by automatic colonization." defaultChecked="true">SensibleAIColonization_DisabledPlayerExpansion_Config.package</component>
-        <component game="GalacticAdventures" unique="SensibleAIColonization_EnabledPlayerExpansion_Config" displayName="Enabled (Auto-Governor)" description="The player empire will colonize and terraform planets using the same rules as AI empires.">SensibleAIColonization_EnabledPlayerExpansion_Config.package</component>
-    </componentGroup>
-
-<componentGroup unique="Space-Diplomacy-Overhaul_Effects_Config" displayName="Relationship Effects">
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_IntendedEffects_Config" displayName="Rebalanced Effects" description="Increases the difficulty of improving relationships with empires." defaultChecked="true">Space-Diplomacy-Overhaul_IntendedEffects_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_VanillaLikeEffects_Config" displayName="Vanilla-like Effects" description="Effects will be closer to the vanilla game balance.">Space-Diplomacy-Overhaul_Vanilla-LikeEffects_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Diplomacy-Overhaul_Aggressiveness_Config" displayName="AI Aggressiveness">
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_LowAggressiveness_Config" displayName="Low Aggressiveness" description="AI empires will be less likely to declare wars.">Space-Diplomacy-Overhaul_LowAgressiveness_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_NormalAggressiveness_Config" displayName="Normal Aggressiveness" description="AI empires will have normal aggressiveness." defaultChecked="true">Space-Diplomacy-Overhaul_NormalAgressiveness_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_HighAggressiveness_Config" displayName="High Aggressiveness" description="AI empires will be more likely to declare wars.">Space-Diplomacy-Overhaul_HighAgressiveness_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Warfare-Overhaul_CombatSpaceBalancing_Config" displayName="Space Combat Balancing">
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_NoRallyRebalancedCombatSpaceBalancing_Module" displayName="Rebalanced (No Rally)" description="Rebalances space combat and disables the Raider Rally tool.">Space-Warfare-Overhaul_NoRallyRebalancedCombatSpaceBalancing_Module.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_RebalancedCombatSpaceBalancing_Module" displayName="Rebalanced Combat" description="Rebalances space combat health and turrets for 4X warfare." defaultChecked="true">Space-Warfare-Overhaul_RebalancedCombatSpaceBalancing_Module.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_VanillaCombatSpaceBalancing_Module" displayName="Vanilla-like Combat" description="Keeps space combat stats closer to vanilla Spore.">Space-Warfare-Overhaul_VanillaCombatSpaceBalancing_Module.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Warfare-Overhaul_AIBomberProductionRate_Config" displayName="AI Bomber Production">
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.15AIBomberProductionRate_Config" displayName="0.15x" description="AI empires produce 0.15x bombers per spice factory.">Space-Warfare-Overhaul_0.15AIBomberProductionRate_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.30AIBomberProductionRate_Config" displayName="0.30x" description="AI empires produce 0.30x bombers per spice factory.">Space-Warfare-Overhaul_0.30AIBomberProductionRate_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.50AIBomberProductionRate_Config" displayName="0.50x" description="AI empires produce 0.50x bombers per spice factory.">Space-Warfare-Overhaul_0.50AIBomberProductionRate_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_0.80AIBomberProductionRate_Config" displayName="0.80x" description="AI empires produce 0.80x bombers per spice factory.">Space-Warfare-Overhaul_0.80AIBomberProductionRate_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_1AIBomberProductionRate_Config" displayName="1.0x (Default)" description="Standard AI bomber production rate." defaultChecked="true">Space-Warfare-Overhaul_1AIBomberProductionRate_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_1.5AIBomberProductionRate_Config" displayName="1.5x" description="AI empires produce 1.5x bombers per spice factory.">Space-Warfare-Overhaul_1.5AIBomberProductionRate_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_2AIBomberProductionRate_Config" displayName="2.0x" description="AI empires produce 2.0x bombers per spice factory.">Space-Warfare-Overhaul_2AIBomberProductionRate_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_4AIBomberProductionRate_Config" displayName="4.0x" description="AI empires produce 4.0x bombers per spice factory.">Space-Warfare-Overhaul_4AIBomberProductionRate_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Warfare-Overhaul_PlayerBomberCost_Config" displayName="Player Bomber Cost">
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_20PlayerBomberCost_Config" displayName="20,000 Sporebucks" description="Each invasion bomber costs 20,000 Sporebucks.">Space-Warfare-Overhaul_20PlayerBomberCost_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_50PlayerBomberCost_Config" displayName="50,000 Sporebucks" description="Each invasion bomber costs 50,000 Sporebucks.">Space-Warfare-Overhaul_50PlayerBomberCost_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_75PlayerBomberCost_Config" displayName="75,000 (Default)" description="Each invasion bomber costs 75,000 Sporebucks." defaultChecked="true">Space-Warfare-Overhaul_75PlayerBomberCost_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_100PlayerBomberCost_Config" displayName="100,000 Sporebucks" description="Each invasion bomber costs 100,000 Sporebucks.">Space-Warfare-Overhaul_100PlayerBomberCost_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_150PlayerBomberCost_Config" displayName="150,000 Sporebucks" description="Each invasion bomber costs 150,000 Sporebucks.">Space-Warfare-Overhaul_150PlayerBomberCost_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Warfare-Overhaul_BuffHostileArchetypes_Config" displayName="Hostile Archetypes Buff">
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_NoBuffHostileArchetypes_Config" displayName="None" description="No production buff for hostile archetypes.">Space-Warfare-Overhaul_NoBuffHostileArchetypes_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_SlightBuffHostileArchetypes_Config" displayName="Slight Buff" description="Slight bomber production buff for hostile archetypes." defaultChecked="true">Space-Warfare-Overhaul_SlightBuffHostileArchetypes_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_HighBuffHostileArchetypes_Config" displayName="High Buff" description="High bomber production buff for hostile archetypes.">Space-Warfare-Overhaul_HighBuffHostileArchetypes_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_ExtremeBuffHostileArchetypes_Config" displayName="Extreme Buff" description="Extreme bomber production buff for hostile archetypes.">Space-Warfare-Overhaul_ExtremeBuffHostileArchetypes_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Warfare-Overhaul_BuffWarriorsZealots_Group" displayName="Buff Warriors &amp; Zealots">
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_BuffWarriorsZealots_Config" displayName="Yes" description="Warriors and Zealots receive additional military buffs." defaultChecked="true">Space-Warfare-Overhaul_BuffWarriorsZealots_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceWarfareOverhaul_NoBuffWarriorsZealots_Config" displayName="No" description="No additional military buffs for Warriors and Zealots.">Space-Warfare-Overhaul_NoBuffWarriorsZealots_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Diplomacy-Overhaul_WarNotifications_Config" displayName="War Notifications">
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAll_Config" displayName="All" description="Notifications will appear for all wars declared." defaultChecked="true">Space-Diplomacy-Overhaul_WarNotificationsAll_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAlliesAndEnemies_Config" displayName="Allies and Enemies" description="Notifications will appear for both allies and enemies declaring wars.">Space-Diplomacy-Overhaul_WarNotificationsAlliesAndEnemies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAllies_Config" displayName="Allies" description="Notifications will only appear when allies declare wars.">Space-Diplomacy-Overhaul_WarNotificationsAllies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsEnemies_Config" displayName="Enemies" description="Notifications will only appear when enemies declare wars.">Space-Diplomacy-Overhaul_WarNotificationsEnemies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsNone_Config" displayName="None" description="No notifications will appear for wars declared.">Space-Diplomacy-Overhaul_WarNotificationsNone_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Diplomacy-Overhaul_AllianceNotifications_Config" displayName="Alliance Notifications">
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAll_Config" displayName="All" description="Notifications will appear for all alliances formed." defaultChecked="true">Space-Diplomacy-Overhaul_AllianceNotificationsAll_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAlliesAndEnemies_Config" displayName="Allies and Enemies" description="Notifications will appear for both allies and enemies forming alliances.">Space-Diplomacy-Overhaul_AllianceNotificationsAlliesAndEnemies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAllies_Config" displayName="Allies" description="Notifications will only appear when allies form alliances.">Space-Diplomacy-Overhaul_AllianceNotificationsAllies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsEnemies_Config" displayName="Enemies" description="Notifications will only appear when enemies form alliances.">Space-Diplomacy-Overhaul_AllianceNotificationsEnemies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsNone_Config" displayName="None" description="No notifications will appear for alliances formed.">Space-Diplomacy-Overhaul_AllianceNotificationsNone_Config.package</component>
-    </componentGroup>
-
-    <componentGroup unique="Space-Diplomacy-Overhaul_AllianceBreakNotifications_Config" displayName="Alliance Break Notifications">
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAll_Config" displayName="All" description="Notifications will appear for all alliances broken." defaultChecked="true">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAll_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAlliesAndEnemies_Config" displayName="Allies and Enemies" description="Notifications will appear for both allies and enemies breaking alliances.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAlliesAndEnemies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAllies_Config" displayName="Allies" description="Notifications will only appear when allies break alliances.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAllies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsEnemies_Config" displayName="Enemies" description="Notifications will only appear when enemies break alliances.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsEnemies_Config.package</component>
-        <component game="GalacticAdventures" unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsNone_Config" displayName="None" description="No notifications will appear for alliances broken.">Space-Diplomacy-Overhaul_AllianceBreakNotificationsNone_Config.package</component>
-    </componentGroup>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_Main.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_Main.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_Main.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_SaicPatch_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_NoSaicPatch_Config.package</remove>
+    <remove game="GalacticAdventures">Fleet_02x.package</remove>
+    <remove game="GalacticAdventures">Fleet_05x.package</remove>
+    <remove game="GalacticAdventures">Fleet_10x.package</remove>
+    <remove game="GalacticAdventures">Fleet_13x.package</remove>
+    <remove game="GalacticAdventures">Fleet_15x.package</remove>
+    <remove game="GalacticAdventures">Rebel_00x.package</remove>
+    <remove game="GalacticAdventures">Rebel_05x.package</remove>
+    <remove game="GalacticAdventures">Rebel_10x.package</remove>
+    <remove game="GalacticAdventures">Rebel_15x.package</remove>
+    <remove game="GalacticAdventures">Rebel_20x.package</remove>
+    <remove game="GalacticAdventures">Upkeep_00x.package</remove>
+    <remove game="GalacticAdventures">Upkeep_05x.package</remove>
+    <remove game="GalacticAdventures">Upkeep_10x.package</remove>
+    <remove game="GalacticAdventures">Upkeep_20x.package</remove>
+    <remove game="GalacticAdventures">Unrest_00x.package</remove>
+    <remove game="GalacticAdventures">Unrest_05x.package</remove>
+    <remove game="GalacticAdventures">Unrest_10x.package</remove>
+    <remove game="GalacticAdventures">Unrest_20x.package</remove>
+    <remove game="GalacticAdventures">Gadget_00x.package</remove>
+    <remove game="GalacticAdventures">Gadget_05x.package</remove>
+    <remove game="GalacticAdventures">Gadget_10x.package</remove>
+    <remove game="GalacticAdventures">Gadget_15x.package</remove>
+    <remove game="GalacticAdventures">Trade_00x.package</remove>
+    <remove game="GalacticAdventures">Trade_05x.package</remove>
+    <remove game="GalacticAdventures">Trade_10x.package</remove>
+    <remove game="GalacticAdventures">Trade_15x.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_40Radius_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_60Radius_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_100Radius_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_200Radius_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_HomeworldActiveRangeReference_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_CurrentPositionActiveRangeReference_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_OnlyPlayersInvalidationDepth_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_DirectRelationsInvalidationDepth_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_IndirectRelationsInvalidationDepth_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsAll_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsAllies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsEnemies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsAlliesAndEnemies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsNone_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAll_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAllies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsEnemies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAlliesAndEnemies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsNone_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsAll_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsAllies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsEnemies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsAlliesAndEnemies_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsNone_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_LowAgressiveness_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_NormalAgressiveness_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_HighAgressiveness_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_IntendedEffects_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Diplomacy-Overhaul_Vanilla-LikeEffects_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_RebalancedCombatSpaceBalancing_Module.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_VanillaCombatSpaceBalancing_Module.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_NoRallyRebalancedCombatSpaceBalancing_Module.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_0.15AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_0.30AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_0.50AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_0.80AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_1AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_1.5AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_2AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_4AIBomberProductionRate_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_20PlayerBomberCost_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_50PlayerBomberCost_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_75PlayerBomberCost_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_100PlayerBomberCost_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_150PlayerBomberCost_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_NoBuffHostileArchetypes_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_SlightBuffHostileArchetypes_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_HighBuffHostileArchetypes_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_ExtremeBuffHostileArchetypes_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_BuffWarriorsZealots_Config.package</remove>
+    <remove game="GalacticAdventures">Space-Warfare-Overhaul_NoBuffWarriorsZealots_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_ExtremelySlowSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_VerySlowSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_SlowSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_NormalSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_FastSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_VeryFastSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_ExtremelyFastSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_40Radius_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_60Radius_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_100Radius_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_200Radius_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAiColonization_DisabledIntraSystemColonization_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAiColonization_OnlyHabitablePlanetsIntraSystemColonization_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAiColonization_AllPlanetsIntraSystemColonization_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_NoTerraforming_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_GreenOrbitTerraforming_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_GreenOrbitGoodSpiceTerraforming_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_AllPlanetsTerraforming_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_ExtremelySlowTerraformingSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_VerySlowTerraformingSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_SlowTerraformingSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_NormalTerraformingSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_FastTerraformingSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_VeryFastTerraformingSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_ExtremelyFastTerraformingSpeed_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_DisabledPlayerExpansion_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_EnabledPlayerExpansion_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_DisabledPreSpaceColonizationRule_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_BasedOnEmpireArchetypePreSpaceColonizationRule_Config.package</remove>
+    <remove game="GalacticAdventures">SensibleAIColonization_UnrestrictedPreSpaceColonizationRule_Config.package</remove>
 
 </mod>
