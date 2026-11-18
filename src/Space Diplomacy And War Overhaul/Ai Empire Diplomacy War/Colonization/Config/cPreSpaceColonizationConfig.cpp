@@ -64,3 +64,4 @@ bool cPreSpaceColonizationConfig::CanArchetypeColonizeCivilizations(Simulator::A
 	return civilizationColonizationByArchetype[ArchetypeUtils::GetBaseArchetype(archetype)];;
 }
 
+

@@ -232,3 +232,4 @@ private:
 	// Maps each spice type to its cost, used to improve performance.
 	eastl::map<ResourceKey, float> spiceCosts;
 };
+

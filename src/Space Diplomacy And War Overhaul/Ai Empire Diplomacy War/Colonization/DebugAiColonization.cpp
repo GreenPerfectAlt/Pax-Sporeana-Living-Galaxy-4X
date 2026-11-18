@@ -2,8 +2,8 @@
 #include "DebugAiColonization.h"
 #include "Spore-Mod-Utils/Include/SporeModUtils.h"
 #include <chrono>
-#include <cEmpireTerraformingManager.h>
-#include <cEmpireColonizationManager.h>
+#include "cEmpireTerraformingManager.h"
+#include "cEmpireColonizationManager.h"
 using namespace SporeModUtils;
 using namespace Simulator;
 DebugAiColonization::DebugAiColonization()
@@ -178,4 +178,5 @@ const char* DebugAiColonization::GetDescription(ArgScript::DescriptionMode mode)
 		return "DebugAiColonization: Elaborate description of what this cheat does.";
 	}
 }
+
 

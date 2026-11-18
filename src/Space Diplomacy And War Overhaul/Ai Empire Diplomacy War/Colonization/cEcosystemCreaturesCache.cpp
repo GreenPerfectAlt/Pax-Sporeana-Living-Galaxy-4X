@@ -129,3 +129,4 @@ eastl::vector<ResourceKey>* cEcosystemCreaturesCache::ReturnElement() {
 		return nullptr;
 	}
 }
+

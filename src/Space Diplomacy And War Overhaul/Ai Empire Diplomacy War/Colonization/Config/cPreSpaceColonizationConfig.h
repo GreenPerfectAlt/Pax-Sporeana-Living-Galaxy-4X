@@ -60,3 +60,4 @@ public:
 	eastl::vector<bool> civilizationColonizationByArchetype;
 };
 
+

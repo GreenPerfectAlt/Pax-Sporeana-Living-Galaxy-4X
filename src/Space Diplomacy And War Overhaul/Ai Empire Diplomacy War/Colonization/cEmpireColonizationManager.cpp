@@ -495,3 +495,4 @@ void cEmpireColonizationManager::EmpiresExpansionSubcycle() {
 
 
 
+
