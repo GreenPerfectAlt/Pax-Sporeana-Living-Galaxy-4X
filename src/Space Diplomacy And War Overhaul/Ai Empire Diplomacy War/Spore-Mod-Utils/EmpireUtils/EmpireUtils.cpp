@@ -1,0 +1,126 @@
+#include "stdafx.h"
+#include "EmpireUtils.h"
+#include <Spore-Mod-Utils/PlanetUtils/PlanetUtils.h>
+#include <Spore-Mod-Utils/SpiceUtils/SpiceUtils.h>
+#include <Spore-Mod-Utils/StarUtils/StarUtils.h>
+namespace SporeModUtils {
+    namespace EmpireUtils {
+
+		bool ValidNpcEmpire(Simulator::cEmpire* empire, bool includePlayer, bool includeGrox, bool includeOtherSaves) {
+			return (empire != nullptr &&
+				(empire->mStars.size() > 0) &&
+				(includePlayer || empire != Simulator::GetPlayerEmpire()) &&
+				(includeGrox || empire != StarManager.GetEmpire((StarManager.GetGrobEmpireID()))) &&
+				(includeOtherSaves || empire == Simulator::GetPlayerEmpire() || (empire->mFlags & (1 << 6)) == 0));
+		}
+
+		Simulator::cStarRecord* GetHomeStar(Simulator::cEmpire* empire) {
+			if (ValidNpcEmpire(empire, true, true, true)) {
+				if (empire->mHomeStar.internalValue == -1) {
+					empire->RequireHomePlanet();
+				}
+				return empire->GetHomeStarRecord();
+			}
+			else {
+				return nullptr;
+			}
+		}
+
+		bool EmpireInRangeOfEmpire(Simulator::cEmpire* empire1, Simulator::cEmpire* empire2, float range){
+			for (cStarRecordPtr starEmpire1 : empire1->mStars) {
+				if (starEmpire1 !=  nullptr){
+					for (cStarRecordPtr starEmpire2 : empire2->mStars) {
+						if (starEmpire2 != nullptr && range > StarUtils::GetDistanceBetweenStars(starEmpire1.get(), starEmpire2.get()) ) {
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+        void GetEmpiresInRadius(const Vector3& coords, float radius, eastl::vector<cEmpirePtr>& empires, bool includePlayer, bool includeGrox, bool includeOtherSaves) {
+			Simulator::StarRequestFilter filter;
+			filter.RemoveStarType(Simulator::StarType::None);
+			filter.RemoveStarType(Simulator::StarType::GalacticCore);
+			filter.RemoveStarType(Simulator::StarType::ProtoPlanetary);
+			filter.RemoveStarType(Simulator::StarType::BlackHole);
+			filter.techLevels = 0;
+			filter.AddTechLevel(Simulator::TechLevel::Empire);
+			filter.minDistance = 0;
+			filter.maxDistance = radius;
+
+			eastl::vector<cStarRecordPtr> starsColonized;
+			StarManager.FindStars(coords, filter, starsColonized);
+
+			// Set prevents duplicates.
+			eastl::set<Simulator::cEmpire*> empireSet;
+
+			Simulator::cEmpire* groxEmpire = StarManager.GetEmpire((StarManager.GetGrobEmpireID()));
+			Simulator::cEmpire* playerEmpire = Simulator::GetPlayerEmpire();
+
+			for (cStarRecordPtr star : starsColonized) {
+				Simulator::cEmpire* starEmpire = StarManager.GetEmpire(star->mEmpireID);
+				if (ValidNpcEmpire(starEmpire, includePlayer, includeGrox, includeOtherSaves)){
+					empireSet.insert(starEmpire);
+				}
+			}
+			// Get the empire from every id.
+			for (Simulator::cEmpire* empire : empireSet) {
+				empires.push_back(cEmpirePtr(empire));
+			}
+        }
+
+		void GetEmpiresInRangeOfEmpire(Simulator::cEmpire* empire, float range, eastl::vector<cEmpirePtr>& empires, bool includePlayer, bool includeGrox, bool includeOtherSaves) {
+			eastl::set<cEmpirePtr> nearEmpiresSet;
+			for (cStarRecordPtr empireStar : empire->mStars) {
+				eastl::vector<cEmpirePtr> empiresAroundStar;
+				Vector3 starCoordinates = empireStar->mPosition;
+				GetEmpiresInRadius(starCoordinates, range, empiresAroundStar, true);
+				for (cEmpirePtr nearEmpire : empiresAroundStar) {
+					if (nearEmpire != empire && EmpireUtils::ValidNpcEmpire(nearEmpire.get(), includePlayer, includeGrox, includeOtherSaves)) {
+						nearEmpiresSet.insert(nearEmpire);
+					}
+				}
+			}
+			for (cEmpirePtr empire : nearEmpiresSet) {
+				empires.push_back(empire);
+			}
+		}
+
+		int GetSystemCountWithAllies(Simulator::cEmpire* empire, eastl::vector<cEmpirePtr>& allies) {
+			int systemCount = empire->mStars.size();
+			for (cEmpirePtr ally : allies) {
+				systemCount += ally->mStars.size();
+			}
+			return systemCount;
+		}
+
+		void GetEmpirePlanets(Simulator::cEmpire* empire, eastl::vector<cPlanetRecordPtr>& planets, const eastl::map<ResourceKey, float>& spiceCosts, bool excludeColonized, bool excludeUncolonized, bool excludeBlueRedOrbit, bool excludeBlueRedOrbitWithLowValueSpice, bool excludeT0) {
+			// We use the base cost of redSpice to determine if a spice is "bad" or "good"
+			ResourceKey cheapestSpiceKey = SpiceUtils::GetCheapestSpice(spiceCosts);
+			for (cStarRecordPtr star : empire->mStars) {
+				for (cPlanetRecordPtr planet : star->GetPlanetRecords()) {
+					if (PlanetUtils::InteractablePlanet(planet.get())) {
+						bool greenOrbit = PlanetUtils::GetPlanetOrbitTemperature(planet.get()) == Simulator::SolarSystemOrbitTemperature::Normal;
+						if ((!excludeColonized || planet->GetTechLevel() != Simulator::TechLevel::Empire) &&
+							(!excludeUncolonized || planet->GetTechLevel() == Simulator::TechLevel::Empire) &&
+							(!excludeBlueRedOrbit || greenOrbit) &&
+							(!excludeT0 || planet->mType != Simulator::PlanetType::T0) && 
+							(!excludeBlueRedOrbitWithLowValueSpice || greenOrbit || !SpiceUtils::LowValueSpice(planet->mSpiceGen, spiceCosts))) {
+							planets.push_back(planet);
+						}
+					}
+				}
+			}
+		}
+
+		void GetEmpirePlanets(Simulator::cEmpire* empire, eastl::vector<cPlanetRecordPtr>& planets, bool excludeColonized, bool excludeUncolonized, bool excludeBlueRedOrbit, bool excludeBlueRedOrbitWithLowValueSpice, bool excludeT0) {
+			eastl::map<ResourceKey, float> spiceCosts;
+			if (excludeBlueRedOrbitWithLowValueSpice && !excludeBlueRedOrbit) {
+				SpiceUtils::GetSpawnableSpiceBaseCosts(spiceCosts);
+			}
+			GetEmpirePlanets(empire, planets, spiceCosts, excludeColonized, excludeUncolonized, excludeBlueRedOrbit, excludeBlueRedOrbitWithLowValueSpice, excludeT0);
+		}
+	}
+}

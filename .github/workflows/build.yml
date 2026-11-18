@@ -53,8 +53,6 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
 
       - name: Download ModAPI DLL Library
         uses: robinraju/release-downloader@v1
