@@ -1,0 +1,3 @@
+float spaceToolMaxDamage 900
+float spaceToolMinDamage 900
+float toolProjectileTimeOut 4

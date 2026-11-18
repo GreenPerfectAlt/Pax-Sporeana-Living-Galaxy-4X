@@ -1,0 +1,101 @@
+#pragma once
+
+#include <Spore\BasicIncludes.h>
+#include "Config\cWarfareConfig.h"
+#include "cWarfareStrengthAnalyzer.h"
+#include "cWarfareEventDispatcher.h"
+#include "cSimulationValidator.h"
+
+#define cEmpireWarfarePtr intrusive_ptr<cEmpireWarfare>
+
+/// @brief Manages warfare logic for a single empire.
+/// Handles target selection, and execution of attacks
+/// against enemy systems.
+class cEmpireWarfare 
+	: public Object
+	, public DefaultRefCounted
+{
+public:
+	static const uint32_t TYPE = id("SpaceWarfareOverhaul::cEmpireWarfare");
+	
+	cEmpireWarfare(Simulator::cEmpire* empire,
+		cSimulationValidator* simulationValidator,
+		cWarfareConfig* warfareConfig, 
+		cWarfareStrengthAnalyzer* warfareStrengthAnalyzer, 
+		cWarfareEventDispatcher* warfareEventDispatcher);
+
+	~cEmpireWarfare();
+
+	int AddRef() override;
+	int Release() override;
+	void* Cast(uint32_t type) const override;
+
+	/// @brief Checks whether a star can be attacked.
+	/// A star is considered attackable if none of its planets currently have active events.
+	/// @param star The star to check.
+	/// @return True if the star can be attacked, false otherwise.
+	bool AtackableStar(Simulator::cStarRecord* star);
+
+	/// Returns the closest enemy-controlled star to the given star within the empire's range.
+	/// @param star.
+	/// @return Pointer to the closest enemy star, or nullptr if none found within range.
+	///Simulator::cStarRecord* GetClosestEnemyStar(Simulator::cStarRecord* star);
+
+	/// Returns a vector of enemy-controlled stars within the empire's range of the given star, sorted by distance (closest first).
+	/// @param star Pointer to the star from which distances are measured.
+	/// @return Vector cStarRecord*, ordered from closest to farthest.
+	eastl::vector<Simulator::cStarRecord*> GetEnemyStarsInRangeOfStar(Simulator::cStarRecord* star);
+
+	/// @brief Calculates and fills the attackPriorityMap with all enemy stars within the empire's range.
+	void CalculateAttackPriorities();
+	
+	/// @brief Calculates the number of bombers required for the empire to conquer a specific planet taking into account 
+	/// the penalty for the current number of planets attacked.
+	/// @param planet Pointer to the target planet.
+	/// @return Number of bombers needed to successfully invade the planet.
+	int GetEmpireBomberForceForPlanet(Simulator::cPlanetRecord* planet);
+
+	/// @brief Calculates the number of bombers required for the empire to conquer a specific system taking into account 
+	/// the penalty for the current number of planets attacked.
+	/// @param star Pointer to the target star system.
+	/// @return Number of bombers needed to successfully invade the system.
+	int GetEmpireBomberForceForSystem(Simulator::cStarRecord* star);
+
+	/// @brief Executes an attack against all valid planets in a star system using a given number of bombers.
+	/// Determines the bomber force required for each planet, distributes any surplus evenly, and 
+	/// dispatches the attack events through cWarfareEventDispatcher. Assumes the provided bomber 
+	/// count is always sufficient to conquer the entire system.
+	/// @param star Pointer to the target star system.
+	/// @param bombers Total number of bombers available for the attack.
+	void AttackStar(Simulator::cStarRecord* star, int bombers);
+
+	/// @brief Determines which enemy stars to attack based on calculated priorities and available forces,
+	/// then executes the attacks on the selected stars.
+	void SelectAndAttackTargets();
+
+	// Pointer to the empire this object is managing.
+	cEmpirePtr empire;
+
+	// Pointer to the loaded simulation validator object.
+	cSimulationValidatorPtr simulationValidator;
+
+	// Pointer to the loaded warfareConfig.
+	cWarfareConfigPtr warfareConfig;
+
+	// Pointer to the loaded warfareStrengthAnalyzer.
+	cWarfareStrengthAnalyzerPtr warfareStrengthAnalyzer;
+
+	// Pointer to the loaded warfareEventDispatcher.
+	cWarfareEventDispatcherPtr warfareEventDispatcher;
+
+
+	// Agression range of the empire.
+	float range;
+
+	// Number of planets attacked this turn.
+	int attackedPlanets;
+
+	// Maps each star to its calculated priority for being targeted in an invasion.
+	eastl::map<cStarRecordPtr, float> attackPriorityMap;
+
+};

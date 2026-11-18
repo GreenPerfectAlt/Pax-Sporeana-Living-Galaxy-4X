@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{07FC5B61-B575-4207-B464-AFAE6AF3FC19}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Ai_Empire_Diplomacy</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="SdkPathConfig.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="SdkPathConfig.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SporeSdkPath)Spore ModAPI;$(SporeSdkPath)EASTL-3.02.01\test\packages\EABase\include\Common;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAAssert\include;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAStdC\include;$(SporeSdkPath)EASTL-3.02.01\include;$(SporeSdkPath)Detours\include\;$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(SporeLauncherPath)coreLibs;$(SporeSdkPath)Detours\lib.X86;$(SporeSdkPath)lib\Debug;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir>$(SporeLauncherPath)mLibs\</OutDir>
+    <LocalDebuggerCommand>$(SporeLauncherPath)Spore ModAPI Launcher.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>$(SporeLauncherPath)</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SporeSdkPath)Spore ModAPI;$(SporeSdkPath)EASTL-3.02.01\test\packages\EABase\include\Common;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAAssert\include;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAStdC\include;$(SporeSdkPath)EASTL-3.02.01\include;$(SporeSdkPath)Detours\include\;$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(SporeLauncherPath)coreLibs;$(SporeSdkPath)Detours\lib.X86;$(SporeSdkPath)lib\Release;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir>$(SporeLauncherPath)mLibs\</OutDir>
+    <LocalDebuggerCommand>$(SporeLauncherPath)Spore ModAPI Launcher.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>$(SporeLauncherPath)</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>"$(ProjectDir)"</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>detours.lib;SporeModAPIBase.lib;SporeModAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SPOREMODAPITEMPLATE_EXPORTS;EXECUTABLE_TYPE=SPORE_STEAM;PATCHED_SPORE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>"$(ProjectDir)"</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>detours.lib;SporeModAPIBase.lib;SporeModAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cCompositionRoot.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="cDatabaseManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="cPersistedEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="cPersistedObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="cPersistenceInjector.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="cPersistenceState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="cSimulationValidator.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cArchetypeAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cCommonAllyAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cCommonEnemyAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cDefeatedCommonEnemyAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cLongAllianceAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cLongPeaceAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cMadePeaceAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cUpliftedByMonolithAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityModifier\cWarWithAllyAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AffinityTextProc.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\AllianceEnemyButtonProc.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\Config\cAffinityConfig.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cDiplomacyEffectAnalyzer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cDiplomacyEvent.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyEventDispatcher.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cDiplomacyEffectInfoProvider.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cDiplomacyEventListener.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cEmpireDiplomacy.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cEmpireDiplomacyFactory.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cEmpireRelationsAnalyzer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\cEmpireRelationshipController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\Config\cArchetypesConfig.h" />
+    <ClInclude Include="Diplomacy\Config\cDiplomacyConfig.h" />
+    <ClInclude Include="Diplomacy\Config\cPersistedDiplomacyEventConfig.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\DiplomacyDetours.h" />
+    <ClInclude Include="Diplomacy\IAffinityModifier.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cDefeatedEnemyTogetherEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cFormedAllianceEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cMadePeaceEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cNeighborsInPeaceEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEventManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cPreparingToDeclareWarEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\PersistedEvent\cUpliftedByMonolithEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ISpaceTimeProvider.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Spore-Mod-Utils\ArchetypeUtils\ArchetypeUtils.h" />
+    <ClInclude Include="Diplomacy\cDiplomacySystem.h" />
+    <ClInclude Include="Diplomacy\DebugDiplomacy.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyPopupManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Spore-Mod-Utils\DiplomacyUtils\DiplomacyUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\EmpireUtils\EmpireUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\Include\SporeModUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\PlanetUtils\PlanetUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\SpiceUtils\SpiceUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\StarUtils\StarUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\TerraformingUtils\TerraformingUtils.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Warfare\cEmpireWarfare.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cEmpireWarfareFactory.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\Config\cArchetypeStrengthConfig.h" />
+    <ClInclude Include="Warfare\Config\cWarfareConfig.h" />
+    <ClInclude Include="Warfare\cPlayerWarshipsManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cSpaceCombatMetrics.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cToolInvasionStrategy.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cPlanetAttackedEvent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cWarfareEventDispatcher.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cWarfareEventListener.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cWarfareStrengthAnalyzer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\cWarfareSystem.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Warfare\DebugWarfare.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cCompositionRoot.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="cDatabaseManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="cPersistedEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="cPersistedObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="cPersistenceInjector.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="cPersistenceState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="cSimulationValidator.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cArchetypeAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cCommonAllyAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cCommonEnemyAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cDefeatedCommonEnemyAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cLongAllianceAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cLongPeaceAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cMadePeaceAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cUpliftedByMonolithAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityModifier\cWarWithAllyAffinityModifier.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AffinityTextProc.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\AllianceEnemyButtonProc.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\Config\cAffinityConfig.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cDiplomacyEffectAnalyzer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cDiplomacyEvent.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyEventDispatcher.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cDiplomacyEffectInfoProvider.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cDiplomacyEventListener.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cEmpireDiplomacy.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cEmpireDiplomacyFactory.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cEmpireRelationsAnalyzer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cEmpireRelationshipController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\Config\cArchetypesConfig.cpp" />
+    <ClCompile Include="Diplomacy\Config\cDiplomacyConfig.cpp" />
+    <ClCompile Include="Diplomacy\Config\cPersistedDiplomacyEventConfig.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cDefeatedEnemyTogetherEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cFormedAllianceEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cMadePeaceEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cNeighborsInPeaceEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEventManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cPreparingToDeclareWarEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\PersistedEvent\cUpliftedByMonolithEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Spore-Mod-Utils\ArchetypeUtils\ArchetypeUtils.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacySystem.cpp" />
+    <ClCompile Include="Diplomacy\DebugDiplomacy.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyPopupManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Spore-Mod-Utils\DiplomacyUtils\DiplomacyUtils.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Spore-Mod-Utils\EmpireUtils\EmpireUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\PlanetUtils\PlanetUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\SpiceUtils\SpiceUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\StarUtils\StarUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\TerraformingUtils\TerraformingUtils.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Warfare\cEmpireWarfare.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cEmpireWarfareFactory.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\Config\cArchetypeStrengthConfig.cpp" />
+    <ClCompile Include="Warfare\Config\cWarfareConfig.cpp" />
+    <ClCompile Include="Warfare\cPlayerWarshipsManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cSpaceCombatMetrics.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cToolInvasionStrategy.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cPlanetAttackedEvent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cWarfareEventDispatcher.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cWarfareEventListener.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cWarfareStrengthAnalyzer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\cWarfareSystem.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Warfare\DebugWarfare.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SdkPathConfig.props" />
+    <None Include="Spore-Mod-Utils\LICENSE" />
+    <None Include="Spore-Mod-Utils\README.md" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

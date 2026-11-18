@@ -1,0 +1,99 @@
+#include "stdafx.h"
+#include "cPersistenceState.h"
+#include "cCompositionRoot.h"
+
+size_t cPersistenceStateFactory::GetTypes(uint32_t* pDstTypes, size_t count) const {
+	if (count >= 1) {
+		pDstTypes[0] = cPersistenceState::NOUN_ID;
+		return 1;
+	}
+	return 0;
+}
+
+Object* cPersistenceStateFactory::Create(uint32_t type, ICoreAllocator* pAllocator) {
+	return new cPersistenceState();
+}
+
+const char* cPersistenceStateFactory::GetName(uint32_t type) const {
+	return "cPersistenceState";
+}
+
+int cPersistenceState::AddRef() {
+	return DefaultRefCounted::AddRef();
+}
+
+int cPersistenceState::Release() {
+	return DefaultRefCounted::Release();
+}
+
+uint32_t cPersistenceState::GetNounID() const {
+	return NOUN_ID;
+}
+
+void* cPersistenceState::Cast(uint32_t type) const {
+	CLASS_CAST(cPersistenceState);
+	PARENT_CAST(cPersistedObject);
+	return nullptr;
+}
+
+bool cPersistenceState::Write(Simulator::ISerializerStream* stream)
+{
+	cCompositionRoot* root = cCompositionRoot::Get();
+	if (root != nullptr && root->spaceCombatMetrics != nullptr) {
+		root->spaceCombatMetrics->ExportStateToPersistence(this);
+	}
+	return cPersistedObject::Write(stream) && Simulator::ClassSerializer(this, ATTRIBUTES).Write(stream);
+}
+
+bool cPersistenceState::Read(Simulator::ISerializerStream* stream)
+{
+	bool success = cPersistedObject::Read(stream) && Simulator::ClassSerializer(this, ATTRIBUTES).Read(stream);
+	if (success)
+	{
+		cCompositionRoot* root = cCompositionRoot::Get();
+		if (root != nullptr && root->spaceCombatMetrics != nullptr) {
+			root->spaceCombatMetrics->ImportStateFromPersistence(this);
+		}
+	}
+	return success;
+}
+
+eastl::string16 cPersistenceState::GetModVersion() const
+{
+	return this->modVersion;
+}
+
+void cPersistenceState::SetModVersion(eastl::string16 modVersion)
+{
+	this->modVersion = modVersion;
+}
+
+uint32_t cPersistenceState::GetNextInstanceID()
+{
+	return nextInstanceID++;
+}
+
+uint32_t cPersistenceState::GetCurrentSpaceTime()
+{
+	return this->spaceStageTime;
+}
+
+void cPersistenceState::IncrementSpaceTime(uint32_t deltaGameTime)
+{
+	this->spaceStageTime += deltaGameTime;
+}
+
+Simulator::Attribute cPersistenceState::ATTRIBUTES[] = {
+	SimAttribute(cPersistenceState, modVersion, 0),
+	SimAttribute(cPersistenceState, nextInstanceID, 1),
+	SimAttribute(cPersistenceState, spaceStageTime, 2),
+	SimAttribute(cPersistenceState, aiGadgetPlanetIDs, 3),
+	SimAttribute(cPersistenceState, aiGadgetFlags, 4),
+	SimAttribute(cPersistenceState, aiGadgetEmbassyEmpires, 5),
+	SimAttribute(cPersistenceState, cachedDefensePlanetIDs, 6),
+	SimAttribute(cPersistenceState, cachedDefenseCities, 7),
+	SimAttribute(cPersistenceState, cachedDefenseTurrets, 8),
+	SimAttribute(cPersistenceState, tradeRouteStarA, 9),
+	SimAttribute(cPersistenceState, tradeRouteStarB, 10),
+	Simulator::Attribute()
+};

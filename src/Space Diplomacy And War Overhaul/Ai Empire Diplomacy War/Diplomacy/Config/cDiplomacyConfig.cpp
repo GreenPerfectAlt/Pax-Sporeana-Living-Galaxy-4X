@@ -1,0 +1,168 @@
+#include "stdafx.h"
+#include "cDiplomacyConfig.h"
+#include <Spore-Mod-Utils/Include/SporeModUtils.h>
+
+using namespace SporeModUtils;
+using namespace Simulator;
+
+cDiplomacyConfig::cDiplomacyConfig(ResourceKey configKey)
+{
+	powerThresholdToAvoidWar = 2.5f;
+
+	PropertyListPtr configProp;
+	PropManager.GetPropertyList(configKey.instanceID, configKey.groupID, configProp);
+
+	App::Property::GetArrayFloat(configProp.get(), 0xE9F5A508, diplomacyRange);
+
+	App::Property::GetInt32(configProp.get(), 0x74F51B4B, maxAffinitySoftCap);
+
+	App::Property::GetInt32(configProp.get(), 0x63812B01, minAffinitySoftCap);
+
+	App::Property::GetInt32(configProp.get(), 0x14986657, maxAgressivity);
+
+	App::Property::GetInt32(configProp.get(), 0x054EC25D, minAgressivity);
+
+	App::Property::GetFloat(configProp.get(), 0x38D9CD5F, maxAllianceProbability);
+
+	App::Property::GetFloat(configProp.get(), 0xDCFF754A, maxWarProbability);
+
+	App::Property::GetFloat(configProp.get(), 0x53B3F63A, aggressivityWeightForWar);
+
+	App::Property::GetFloat(configProp.get(), 0x4879A1DC, affinityWeightForWar);
+
+	App::Property::GetFloat(configProp.get(), 0xB05A4ED0, minWarProbability);
+
+	App::Property::GetInt32(configProp.get(), 0xDB025009, affinityThresholdForStableAlliance);
+
+	App::Property::GetInt32(configProp.get(), 0x07DB4B1C, affinityThresholdForUnstableAlliance);
+
+	App::Property::GetInt32(configProp.get(), 0x22472FA3, affinityThresholdForWar);
+
+	App::Property::GetArrayInt32(configProp.get(), 0x8DA36269, baseAggressivityByArchetype);
+
+	App::Property::GetArrayInt32(configProp.get(), 0x51A5A369, aggressivityGrowthByPowerLevel);
+
+	App::Property::GetBool(configProp.get(), 0xC1C6CE47, autoDeclareWarOnAllyEnemies);
+
+	App::Property::GetBool(configProp.get(), 0xCC04E149, startsWarsWhileAtWar);
+
+	App::Property::GetFloat(configProp.get(), 0x4BB58401, powerThresholdToAvoidWar);
+}
+
+
+cDiplomacyConfig::~cDiplomacyConfig()
+{
+}
+
+// For internal use, do not modify.
+int cDiplomacyConfig::AddRef()
+{
+	return DefaultRefCounted::AddRef();
+}
+
+// For internal use, do not modify.
+int cDiplomacyConfig::Release()
+{
+	return DefaultRefCounted::Release();
+}
+
+// You can extend this function to return any other types your class implements.
+void* cDiplomacyConfig::Cast(uint32_t type) const
+{
+	CLASS_CAST(Object);
+	CLASS_CAST(cDiplomacyConfig);
+	return nullptr;
+}
+
+float cDiplomacyConfig::GetDiplomacyRange(int level) {
+	if (diplomacyRange.empty())
+	{
+		return 1.0f;
+	}
+	if (level < 0)
+	{
+		return diplomacyRange[0];
+	}
+	if (level >= int(diplomacyRange.size()))
+	{
+		return diplomacyRange.back();
+	}
+	return diplomacyRange[level];
+}
+
+int cDiplomacyConfig::GetMaxAffinitySoftCap() {
+	return maxAffinitySoftCap;
+}
+
+int cDiplomacyConfig::GetMinAffinitySoftCap() {
+	return minAffinitySoftCap;
+}
+
+
+int cDiplomacyConfig::GetMaxAgressivity() {
+	return maxAgressivity;
+}
+
+
+int cDiplomacyConfig::GetMinAgressivity() {
+	return minAgressivity;
+}
+
+float cDiplomacyConfig::GetMaxAllianceProbability() {
+	return maxAllianceProbability;
+}
+
+float cDiplomacyConfig::GetMaxWarProbability() {
+	return maxWarProbability;
+}
+
+float cDiplomacyConfig::GetAgressivityWeightForWar() {
+	return aggressivityWeightForWar;
+}
+
+float cDiplomacyConfig::GetAffinityWeightForWar() {
+	return affinityWeightForWar;
+}
+
+float cDiplomacyConfig::GetMinWarProbability() {
+	return minWarProbability;
+}
+
+int cDiplomacyConfig::GetAffinityThresholdForStableAlliance() {
+	return affinityThresholdForStableAlliance;
+}
+
+int cDiplomacyConfig::GetAffinityThresholdForUnstableAlliance() {
+	return affinityThresholdForUnstableAlliance;
+}
+
+int cDiplomacyConfig::GetAffinityThresholdForWar() {
+	return affinityThresholdForWar;
+}
+
+int cDiplomacyConfig::GetArchetypeAgressivity(Simulator::Archetypes archetype) {
+	Archetypes baseArchetype = ArchetypeUtils::GetBaseArchetype(archetype);
+	if (int(baseArchetype) < 0 || int(baseArchetype) >= int(baseAggressivityByArchetype.size())) {
+		return 1;
+	}
+	return baseAggressivityByArchetype[baseArchetype];
+}
+
+int cDiplomacyConfig::GetAggressivityGrowthByPowerLevel(int powerLevel) {
+	if (aggressivityGrowthByPowerLevel.empty()) return 0;
+	if (powerLevel < 0) return aggressivityGrowthByPowerLevel.front();
+	if (powerLevel >= int(aggressivityGrowthByPowerLevel.size())) return aggressivityGrowthByPowerLevel.back();
+	return aggressivityGrowthByPowerLevel[powerLevel];
+}
+
+bool cDiplomacyConfig::GetAutoDeclareWarOnAllyEnemies() {
+	return autoDeclareWarOnAllyEnemies;
+}
+
+bool cDiplomacyConfig::GetStartsWarsWhileAtWar() {
+	return startsWarsWhileAtWar;
+}
+
+float cDiplomacyConfig::GetPowerThresholdToAvoidWar() {
+	return powerThresholdToAvoidWar;
+}

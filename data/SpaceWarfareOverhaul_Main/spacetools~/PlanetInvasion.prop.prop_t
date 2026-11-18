@@ -1,0 +1,25 @@
+key parent spacetools~!ToolTemplate.prop
+string16 description "Invasion Call"
+int32 spaceToolBuyCost 30
+key spaceToolContext always
+texts spaceToolDescription
+	"Invasion Call"
+end
+texts spaceToolDetailDescription
+	"Use on a planet or system to summon an invasion force from your empire."
+end
+bool spaceToolDisableOn201Ruins true
+bool spaceToolDisableOnHomeworld true
+bool spaceToolDisableOnSaveGames true
+key spaceToolImageID ufotools~!0xD08C0068.png
+texts spaceToolLockedDescription
+	(spacegame_tools!0xa0bb7099) "Requires ~commodity_requirements~"
+end
+int32 spaceToolUseCost 75000
+key spaceToolPanelKey TravelConsumablePanel
+float spaceToolRechargeRate 1
+key spaceToolStrategy SpaceWarfareOverhaul::cToolInvasionStrategy
+key spaceToolType special
+bool toolDeselectsAfterUse true
+bool toolUseOnActivate true
+bool spaceToolUsesAmmo false

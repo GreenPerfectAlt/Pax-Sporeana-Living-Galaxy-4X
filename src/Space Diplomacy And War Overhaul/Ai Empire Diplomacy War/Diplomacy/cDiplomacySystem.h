@@ -1,0 +1,98 @@
+#pragma once
+
+#include <Spore\BasicIncludes.h>
+#include "cEmpireDiplomacy.h"
+#include <Spore\Simulator\SubSystem\SimulatorSystem.h>
+#include "cEmpireDiplomacyFactory.h"
+#include "cSimulationValidator.h"
+
+
+#define cDiplomacySystemPtr intrusive_ptr<cDiplomacySystem>
+
+/// Main class of the diplomacy system.
+/// Coordinates diplomacy cycles and manages
+/// cEmpireDiplomacy objects for all relevant empires.
+class cDiplomacySystem
+	: public Simulator::cStrategy
+{
+public:
+	static const uint32_t TYPE = id("SpaceDiplomacyOverhaul::cDiplomacySystem");
+	static const uint32_t NOUN_ID = TYPE;
+
+	int AddRef() override;
+	int Release() override;
+	void Initialize() override;
+	void Dispose() override;
+	const char* GetName() const override;
+	bool Write(Simulator::ISerializerStream* stream) override;
+	bool Read(Simulator::ISerializerStream* stream) override;
+	void Update(int deltaTime, int deltaGameTime) override;
+	bool WriteToXML(Simulator::XmlSerializer* xml) override;
+	void OnModeEntered(uint32_t previousModeID, uint32_t newModeID) override;
+	void OnModeExited(uint32_t previousModeID, uint32_t newModeID) override;
+	static Simulator::Attribute ATTRIBUTES[];
+
+	//
+	// You can add more methods here
+	//
+
+	static cDiplomacySystem* Get();
+
+	/**
+	* @brief Injects the required dependencies into the manager.
+	* @param simulationValidator.
+	* @param empireDiplomacyFactory.
+	*/
+	void InjectDependencies(cSimulationValidator* simulationValidator, cEmpireDiplomacyFactory* empireDiplomacyFactory);
+
+	/// @brief Executes one subcycle of the diplomacy system.
+	/// Processes the next empire in the queue and handles its diplomatic actions.
+	void DiplomacySubCycle();
+
+	/// @brief Starts a new diplomacy cycle.
+	/// Initializes the list of empires, resets timers, and distributes empires across subcycles.
+	void StartDiplomacyCycle();
+
+private:
+
+
+	static cDiplomacySystem* instance;
+
+	// Actives empireDiplomacy;
+	eastl::vector<cEmpireDiplomacyPtr> empiresDiplomacy;
+
+	// Iterator to the next empire whose diplomacy will be managed..
+	eastl::vector<cEmpireDiplomacyPtr>::iterator empireToManage;
+
+	// Pointer to the loaded simulation validator object.
+	cSimulationValidatorPtr simulationValidator;
+
+	// Pointer to the loaded empire diplomacy factory.
+	cEmpireDiplomacyFactoryPtr empireDiplomacyFactory;
+
+	// Indicates whether the manager’s dependencies have been injected.
+	bool dependenciesInjected;
+
+	// Time passed (in miliseconds) since the cycle has started.
+	int elapsedTime;
+
+	// Miliseconds of gameTime between expansion cycles.
+	int cycleInterval;
+
+	// Number of empires evaluated per subcycle.
+	int empiresPerSubCycle;
+
+	// Timestamp (in milliseconds) of the next subcycle execution.
+	int nextSubcycleTime;
+
+	// Minimum time (in milliseconds) that must pass between subcycles.
+	int minSubcycleStep;
+
+	// Time (in milliseconds) that will pass between subcycles.
+	int subcycleStep;
+
+	// Radius (in parsecs) in which the manager is active.
+	float activeRadius;
+
+	int cycle;
+};

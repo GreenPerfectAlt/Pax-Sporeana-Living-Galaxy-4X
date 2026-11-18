@@ -1,0 +1,31 @@
+floats empireDiplomacyRange
+	3.0
+	5.0
+	7.0
+	8.0
+	10.0
+end
+
+int32 MaxAffinitySoftCap  7
+int32 MinAffinitySoftCap -7
+int32 MaxAgressivity 6
+int32 MinAgressivity -6
+
+float MaxAllianceProbability 0.50
+float MaxWarProbability 0.40
+
+float AgressivityWeightForWar 0.30
+float AffinityWeightForWar 0.70
+float MinWarProbability 0.001
+
+int32 AffinityThresholdForStableAlliance  1
+int32 AffinityThresholdForUnstableAlliance  0
+int32 AffinityThresholdForWar 0
+
+bool autoDeclareWarOnAllyEnemies true
+
+# Does not apply to enemies of allies.
+bool startsWarsWhileAtWar false
+
+# Does not apply to enemies of allies.
+float powerThresholdToAvoidWar 1.20 

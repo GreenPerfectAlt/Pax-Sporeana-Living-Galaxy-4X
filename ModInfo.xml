@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mod
+  description="Living 4X Space Stage Overhaul (Part 2). Adds AI Empire Treasuries, 3D Multi-Species Trade Convoys &amp; Plundering, 10 Asymmetrical Philosophy Doctrines (Zealot Schism, Shaman Reincarnation, Ecologist Bio-Regen), Orbital Dreadnoughts, and Background Galactic Revolutions with Breakaway Republics! Install alongside 'Defensive Ships in Player Colonies' (Part 1) to configure 4X presets. Requires UPE."
+  displayName="Space Diplomacy And Warfare Overhaul (4X Extended)"
+  dllsBuild="$SPOREMOD_DLLS_BUILD"
+  githubUrl="https://github.com"
+  hasCustomInstaller="true"
+  installerSystemVersion="1.0.1.2"
+  isExperimental="$SPOREMOD_EXPERIMENTAL"
+  unique="SpaceDiplomacyAndWarfareOverhaul">
+
+	<!-- RadiusConfig -->
+	<componentGroup displayName="Active Radius" unique="Space-Diplomacy-And-Warfare-Overhaul_Radius_Config">
+		<component game="GalacticAdventures" displayName="40 pc" description="Only empires within 40 pc of the active range center will be affected by the mod." unique="SpaceDiplomacyAndWarOverhaul_40Radius_Config" defaultChecked="false">Space-Diplomacy-Overhaul_40Radius_Config.package</component>
+		<component game="GalacticAdventures" displayName="60 pc" description="Only empires within 60 pc of the active range center will be affected by the mod." unique="SpaceDiplomacyAndWarOverhaul_60Radius_Config" defaultChecked="false">Space-Diplomacy-Overhaul_60Radius_Config.package</component>
+		<component game="GalacticAdventures" displayName="100 pc" description="Only empires within 100 pc of the active range center will be affected by the mod." unique="SpaceDiplomacyAndWarOverhaul_100Radius_Config" defaultChecked="true">Space-Diplomacy-Overhaul_100Radius_Config.package</component>
+		<component game="GalacticAdventures" displayName="200 pc" description="Only empires within 200 pc of the active range center will be affected by the mod." unique="SpaceDiplomacyAndWarOverhaul_200Radius_Config" defaultChecked="false">Space-Diplomacy-Overhaul_200Radius_Config.package</component>
+	</componentGroup>
+
+	<!-- Active Range Center -->
+	<componentGroup displayName="Active Range Center" unique="Space-Diplomacy-Overhaul_ActiveRangeReference_Config">
+		<component game="GalacticAdventures" displayName="Homeworld" description="The mod uses the player's homeworld as the center of the active range." unique="SpaceDiplomacyAndWarOverhaul_HomeworldActiveRangeReference_Config" defaultChecked="true">Space-Diplomacy-Overhaul_HomeworldActiveRangeReference_Config.package</component>
+		<component game="GalacticAdventures" displayName="Current Position" description="The mod uses the player's current position as the center of the active range." unique="SpaceDiplomacyAndWarOverhaul_CurrentPositionActiveRangeReference_Config" defaultChecked="false">Space-Diplomacy-Overhaul_CurrentPositionActiveRangeReference_Config.package</component>
+	</componentGroup>
+
+	<!-- Ignore Other Players' Empires -->
+	<componentGroup displayName="Player Exclusion Depth" unique="Space-Diplomacy-Overhaul_EmpireInvalidationDepth_Config">
+		<component game="GalacticAdventures" displayName="Players Only" description="The mod ignores only other players' empires." unique="SpaceDiplomacyAndWarOverhaul_OnlyPlayersInvalidationDepth_Config" defaultChecked="false">Space-Diplomacy-Overhaul_OnlyPlayersInvalidationDepth_Config.package</component>
+		<component game="GalacticAdventures" displayName="Players + Direct Relations" description="The mod ignores other players' empires and their direct allies and enemies." unique="SpaceDiplomacyAndWarOverhaul_DirectRelationsInvalidationDepth_Config" defaultChecked="true">Space-Diplomacy-Overhaul_DirectRelationsInvalidationDepth_Config.package</component>
+		<component game="GalacticAdventures" displayName="Players + Indirect Relations" description="The mod ignores other players' empires, their direct allies and enemies, and the direct allies and enemies of those empires." unique="SpaceDiplomacyAndWarOverhaul_IndirectRelationsInvalidationDepth_Config" defaultChecked="false">Space-Diplomacy-Overhaul_IndirectRelationsInvalidationDepth_Config.package</component>
+	</componentGroup>
+
+	<!-- Effects -->
+	<componentGroup displayName="Relationship Effects" unique="Space-Diplomacy-Overhaul_Effects_Config">
+		<component game="GalacticAdventures" displayName="Rebalanced Effects" description="Increase the difficulty of improving relationships with empires." unique="SpaceDiplomacyAndWarOverhaul_IntendedEffects_Config" defaultChecked="true">Space-Diplomacy-Overhaul_IntendedEffects_Config.package</component>
+		<component game="GalacticAdventures" displayName="Vanilla-like Effects" description="Effects will be closer to the vanilla game balance." unique="SpaceDiplomacyAndWarOverhaul_VanillaLikeEffects_Config" defaultChecked="false">Space-Diplomacy-Overhaul_Vanilla-LikeEffects_Config.package</component>
+	</componentGroup>
+
+	<!-- Aggressiveness -->
+	<componentGroup displayName="AI Aggressiveness" unique="Space-Diplomacy-Overhaul_Aggressiveness_Config">
+		<component game="GalacticAdventures" displayName="Low Aggressiveness" description="AI empires will be less likely to declare wars." unique="SpaceDiplomacyAndWarOverhaul_LowAggressiveness_Config" defaultChecked="false">Space-Diplomacy-Overhaul_LowAgressiveness_Config.package</component>
+		<component game="GalacticAdventures" displayName="Normal Aggressiveness" description="AI empires will have normal aggressiveness." unique="SpaceDiplomacyAndWarOverhaul_NormalAggressiveness_Config" defaultChecked="true">Space-Diplomacy-Overhaul_NormalAgressiveness_Config.package</component>
+		<component game="GalacticAdventures" displayName="High Aggressiveness" description="AI empires will be more likely to declare wars." unique="SpaceDiplomacyAndWarOverhaul_HighAggressiveness_Config" defaultChecked="false">Space-Diplomacy-Overhaul_HighAgressiveness_Config.package</component>
+	</componentGroup>
+
+	<!-- Alliance Notifications -->
+	<componentGroup displayName="Alliance Notifications" unique="Space-Diplomacy-Overhaul_AllianceNotifications_Config">
+		<component game="GalacticAdventures" displayName="All" description="Notifications will appear for all alliances formed." unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAll_Config" defaultChecked="true">Space-Diplomacy-Overhaul_AllianceNotificationsAll_Config.package</component>
+		<component game="GalacticAdventures" displayName="Allies and Enemies" description="Notifications will appear for both allies and enemies forming alliances." unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAlliesAndEnemies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceNotificationsAlliesAndEnemies_Config.package</component>
+		<component game="GalacticAdventures" displayName="Allies" description="Notifications will only appear when allies form alliances." unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsAllies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceNotificationsAllies_Config.package</component>
+		<component game="GalacticAdventures" displayName="Enemies" description="Notifications will only appear when enemies form alliances." unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsEnemies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceNotificationsEnemies_Config.package</component>
+		<component game="GalacticAdventures" displayName="None" description="Disables all alliance notifications." unique="SpaceDiplomacyAndWarOverhaul_AllianceNotificationsNone_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceNotificationsNone_Config.package</component>
+	</componentGroup>
+
+	<!-- Alliance Break Notifications -->
+	<componentGroup displayName="Alliance Break Notifications" unique="Space-Diplomacy-Overhaul_AllianceBreakNotifications_Config">
+		<component game="GalacticAdventures" displayName="All" description="Notifications will appear for all broken alliances." unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAll_Config" defaultChecked="true">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAll_Config.package</component>
+		<component game="GalacticAdventures" displayName="Allies and Enemies" description="Notifications will appear for both allies and enemies breaking alliances." unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAlliesAndEnemies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAlliesAndEnemies_Config.package</component>
+		<component game="GalacticAdventures" displayName="Allies" description="Notifications will only appear when allies break alliances." unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsAllies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAllies_Config.package</component>
+		<component game="GalacticAdventures" displayName="Enemies" description="Notifications will only appear when enemies break alliances." unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsEnemies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceBreakNotificationsEnemies_Config.package</component>
+		<component game="GalacticAdventures" displayName="None" description="Disables all alliance break notifications." unique="SpaceDiplomacyAndWarOverhaul_AllianceBreakNotificationsNone_Config" defaultChecked="false">Space-Diplomacy-Overhaul_AllianceBreakNotificationsNone_Config.package</component>
+	</componentGroup>
+
+	<!-- War Notifications -->
+	<componentGroup displayName="War Notifications" unique="Space-Diplomacy-Overhaul_WarNotifications_Config">
+		<component game="GalacticAdventures" displayName="All" description="Notifications will appear for all wars declared." unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAll_Config" defaultChecked="true">Space-Diplomacy-Overhaul_WarNotificationsAll_Config.package</component>
+		<component game="GalacticAdventures" displayName="Allies and Enemies" description="Notifications will appear for both allies and enemies declaring wars." unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAlliesAndEnemies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_WarNotificationsAlliesAndEnemies_Config.package</component>
+		<component game="GalacticAdventures" displayName="Allies" description="Notifications will only appear when allies declare wars." unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsAllies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_WarNotificationsAllies_Config.package</component>
+		<component game="GalacticAdventures" displayName="Enemies" description="Notifications will only appear when enemies declare wars." unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsEnemies_Config" defaultChecked="false">Space-Diplomacy-Overhaul_WarNotificationsEnemies_Config.package</component>
+		<component game="GalacticAdventures" displayName="None" description="Disables all war notifications." unique="SpaceDiplomacyAndWarOverhaul_WarNotificationsNone_Config" defaultChecked="false">Space-Diplomacy-Overhaul_WarNotificationsNone_Config.package</component>
+	</componentGroup>
+
+	<!-- Space Combat Balancing -->
+	<componentGroup displayName="Space Combat Balancing" unique="Space-Warfare-Overhaul_CombatSpaceBalancing_Config">
+		<component game="GalacticAdventures" displayName="Rebalanced Combat (No Raider Rally)" description="Rebalances space combat and disables the Raider Rally tool." unique="SpaceWarfareOverhaul_NoRallyRebalancedCombatSpaceBalancing_Module" defaultChecked="false">Space-Warfare-Overhaul_NoRallyRebalancedCombatSpaceBalancing_Module.package</component>
+		<component game="GalacticAdventures" displayName="Rebalanced Combat" description="Rebalances space combat health and turrets for 4X warfare." unique="SpaceWarfareOverhaul_RebalancedCombatSpaceBalancing_Module" defaultChecked="true">Space-Warfare-Overhaul_RebalancedCombatSpaceBalancing_Module.package</component>
+		<component game="GalacticAdventures" displayName="Vanilla-like Combat" description="Keeps space combat stats closer to vanilla Spore." unique="SpaceWarfareOverhaul_VanillaCombatSpaceBalancing_Module" defaultChecked="false">Space-Warfare-Overhaul_VanillaCombatSpaceBalancing_Module.package</component>
+	</componentGroup>
+
+	<!-- AI Bomber Production Rate -->
+	<componentGroup displayName="AI Bomber Production Rate" unique="Space-Warfare-Overhaul_AIBomberProductionRate_Config">
+		<component game="GalacticAdventures" displayName="0.15x" description="AI empires produce 0.15x bombers per spice factory." unique="SpaceWarfareOverhaul_0.15AIBomberProductionRate_Config" defaultChecked="false">Space-Warfare-Overhaul_0.15AIBomberProductionRate_Config.package</component>
+		<component game="GalacticAdventures" displayName="0.30x" description="AI empires produce 0.30x bombers per spice factory." unique="SpaceWarfareOverhaul_0.30AIBomberProductionRate_Config" defaultChecked="false">Space-Warfare-Overhaul_0.30AIBomberProductionRate_Config.package</component>
+		<component game="GalacticAdventures" displayName="0.50x" description="AI empires produce 0.50x bombers per spice factory." unique="SpaceWarfareOverhaul_0.50AIBomberProductionRate_Config" defaultChecked="false">Space-Warfare-Overhaul_0.50AIBomberProductionRate_Config.package</component>
+		<component game="GalacticAdventures" displayName="0.80x" description="AI empires produce 0.80x bombers per spice factory." unique="SpaceWarfareOverhaul_0.80AIBomberProductionRate_Config" defaultChecked="false">Space-Warfare-Overhaul_0.80AIBomberProductionRate_Config.package</component>
+		<component game="GalacticAdventures" displayName="1.0x (Default)" description="Standard AI bomber production rate." unique="SpaceWarfareOverhaul_1AIBomberProductionRate_Config" defaultChecked="true">Space-Warfare-Overhaul_1AIBomberProductionRate_Config.package</component>
+		<component game="GalacticAdventures" displayName="1.5x" description="AI empires produce 1.5x bombers per spice factory." unique="SpaceWarfareOverhaul_1.5AIBomberProductionRate_Config" defaultChecked="false">Space-Warfare-Overhaul_1.5AIBomberProductionRate_Config.package</component>
+		<component game="GalacticAdventures" displayName="2.0x" description="AI empires produce 2.0x bombers per spice factory." unique="SpaceWarfareOverhaul_2AIBomberProductionRate_Config" defaultChecked="false">Space-Warfare-Overhaul_2AIBomberProductionRate_Config.package</component>
+		<component game="GalacticAdventures" displayName="4.0x" description="AI empires produce 4.0x bombers per spice factory." unique="SpaceWarfareOverhaul_4AIBomberProductionRate_Config" defaultChecked="false">Space-Warfare-Overhaul_4AIBomberProductionRate_Config.package</component>
+	</componentGroup>
+
+	<!-- Player Bomber Cost -->
+	<componentGroup displayName="Player Invasion Bomber Cost" unique="Space-Warfare-Overhaul_PlayerBomberCost_Config">
+		<component game="GalacticAdventures" displayName="20,000 Sporebucks" description="Each invasion bomber costs 20,000 Sporebucks." unique="SpaceWarfareOverhaul_20PlayerBomberCost_Config" defaultChecked="false">Space-Warfare-Overhaul_20PlayerBomberCost_Config.package</component>
+		<component game="GalacticAdventures" displayName="50,000 Sporebucks" description="Each invasion bomber costs 50,000 Sporebucks." unique="SpaceWarfareOverhaul_50PlayerBomberCost_Config" defaultChecked="false">Space-Warfare-Overhaul_50PlayerBomberCost_Config.package</component>
+		<component game="GalacticAdventures" displayName="75,000 Sporebucks (Default)" description="Each invasion bomber costs 75,000 Sporebucks." unique="SpaceWarfareOverhaul_75PlayerBomberCost_Config" defaultChecked="true">Space-Warfare-Overhaul_75PlayerBomberCost_Config.package</component>
+		<component game="GalacticAdventures" displayName="100,000 Sporebucks" description="Each invasion bomber costs 100,000 Sporebucks." unique="SpaceWarfareOverhaul_100PlayerBomberCost_Config" defaultChecked="false">Space-Warfare-Overhaul_100PlayerBomberCost_Config.package</component>
+		<component game="GalacticAdventures" displayName="150,000 Sporebucks" description="Each invasion bomber costs 150,000 Sporebucks." unique="SpaceWarfareOverhaul_150PlayerBomberCost_Config" defaultChecked="false">Space-Warfare-Overhaul_150PlayerBomberCost_Config.package</component>
+	</componentGroup>
+
+	<!-- Hostile Archetypes Buff -->
+	<componentGroup displayName="Hostile Archetypes Production Buff" unique="Space-Warfare-Overhaul_BuffHostileArchetypes_Config">
+		<component game="GalacticAdventures" displayName="None" description="No production buff for hostile archetypes." unique="SpaceWarfareOverhaul_NoBuffHostileArchetypes_Config" defaultChecked="false">Space-Warfare-Overhaul_NoBuffHostileArchetypes_Config.package</component>
+		<component game="GalacticAdventures" displayName="Slight Buff" description="Slight bomber production buff for hostile archetypes." unique="SpaceWarfareOverhaul_SlightBuffHostileArchetypes_Config" defaultChecked="true">Space-Warfare-Overhaul_SlightBuffHostileArchetypes_Config.package</component>
+		<component game="GalacticAdventures" displayName="High Buff" description="High bomber production buff for hostile archetypes." unique="SpaceWarfareOverhaul_HighBuffHostileArchetypes_Config" defaultChecked="false">Space-Warfare-Overhaul_HighBuffHostileArchetypes_Config.package</component>
+		<component game="GalacticAdventures" displayName="Extreme Buff" description="Extreme bomber production buff for hostile archetypes." unique="SpaceWarfareOverhaul_ExtremeBuffHostileArchetypes_Config" defaultChecked="false">Space-Warfare-Overhaul_ExtremeBuffHostileArchetypes_Config.package</component>
+	</componentGroup>
+
+	<!-- Buff Warriors and Zealots -->
+	<componentGroup displayName="Buff Warriors and Zealots" unique="Space-Warfare-Overhaul_BuffWarriorsZealots_Group">
+		<component game="GalacticAdventures" displayName="Yes" description="Warriors and Zealots receive additional military buffs." unique="SpaceWarfareOverhaul_BuffWarriorsZealots_Config" defaultChecked="true">Space-Warfare-Overhaul_BuffWarriorsZealots_Config.package</component>
+		<component game="GalacticAdventures" displayName="No" description="No additional military buffs for Warriors and Zealots." unique="SpaceWarfareOverhaul_NoBuffWarriorsZealots_Config" defaultChecked="false">Space-Warfare-Overhaul_NoBuffWarriorsZealots_Config.package</component>
+	</componentGroup>
+
+	<!-- SAIC Compatibility Patch -->
+	<componentGroup displayName="Sensible AI Colonization (SAIC) Patch" unique="Space-Diplomacy-Overhaul_SaicPatch_Group">
+		<component game="GalacticAdventures" displayName="Enabled" description="Enable compatibility tuning for Sensible AI Colonization." unique="SpaceDiplomacyAndWarOverhaul_SaicPatch_Config" defaultChecked="false">Space-Diplomacy-Overhaul_SaicPatch_Config.package</component>
+		<component game="GalacticAdventures" displayName="Disabled" description="Standard colonization balance (use if SAIC is not installed)." unique="SpaceDiplomacyAndWarOverhaul_NoSaicPatch_Config" defaultChecked="true">Space-Diplomacy-Overhaul_NoSaicPatch_Config.package</component>
+	</componentGroup>
+
+	<!-- Core Prerequisites -->
+	<prerequisite game="GalacticAdventures">Space-Diplomacy-Overhaul_Main.package</prerequisite>
+	<prerequisite game="GalacticAdventures">Space-Warfare-Overhaul_Main.package</prerequisite>
+	<prerequisite>Ai Empire Diplomacy War.dll</prerequisite>
+
+	<!-- Clean Removal -->
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_Main.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_Main.package</remove>
+	<remove>Ai Empire Diplomacy War.dll</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_40Radius_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_60Radius_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_100Radius_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_200Radius_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_HomeworldActiveRangeReference_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_CurrentPositionActiveRangeReference_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_OnlyPlayersInvalidationDepth_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_DirectRelationsInvalidationDepth_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_IndirectRelationsInvalidationDepth_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsAll_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsAllies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsEnemies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsAlliesAndEnemies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceNotificationsNone_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAll_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAllies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsEnemies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsAlliesAndEnemies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_AllianceBreakNotificationsNone_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsAll_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsAllies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsEnemies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsAlliesAndEnemies_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_WarNotificationsNone_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_LowAgressiveness_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_NormalAgressiveness_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_HighAgressiveness_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_IntendedEffects_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_Vanilla-LikeEffects_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_SaicPatch_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Diplomacy-Overhaul_NoSaicPatch_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_RebalancedCombatSpaceBalancing_Module.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_VanillaCombatSpaceBalancing_Module.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_NoRallyRebalancedCombatSpaceBalancing_Module.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_0.15AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_0.30AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_0.50AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_0.80AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_1AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_1.5AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_2AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_4AIBomberProductionRate_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_20PlayerBomberCost_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_50PlayerBomberCost_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_75PlayerBomberCost_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_100PlayerBomberCost_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_150PlayerBomberCost_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_NoBuffHostileArchetypes_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_SlightBuffHostileArchetypes_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_HighBuffHostileArchetypes_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_ExtremeBuffHostileArchetypes_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_BuffWarriorsZealots_Config.package</remove>
+	<remove game="GalacticAdventures">Space-Warfare-Overhaul_NoBuffWarriorsZealots_Config.package</remove>
+</mod>

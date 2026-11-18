@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Ai Empire Diplomacy">
+      <UniqueIdentifier>{3880d018-2395-4502-abfe-4b83e0817aab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Internal">
+      <UniqueIdentifier>{d62ad12d-69d8-4933-8342-03043c9adc22}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Diplomacy\DebugDiplomacy.h" />
+    <ClInclude Include="Diplomacy\cDiplomacySystem.h" />
+    <ClInclude Include="Spore-Mod-Utils\EmpireUtils\EmpireUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\Include\SporeModUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\PlanetUtils\PlanetUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\SpiceUtils\SpiceUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\StarUtils\StarUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\TerraformingUtils\TerraformingUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\DiplomacyUtils\DiplomacyUtils.h" />
+    <ClInclude Include="Spore-Mod-Utils\ArchetypeUtils\ArchetypeUtils.h" />
+    <ClInclude Include="Diplomacy\AllianceEnemyButtonProc.h" />
+    <ClInclude Include="Diplomacy\cEmpireDiplomacy.h" />
+    <ClInclude Include="Diplomacy\cEmpireRelationsAnalyzer.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyEventDispatcher.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyEvent.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyEventListener.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyPopupManager.h" />
+    <ClInclude Include="Diplomacy\cEmpireRelationshipController.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyEffectInfoProvider.h" />
+    <ClInclude Include="Diplomacy\cDiplomacyEffectAnalyzer.h" />
+    <ClInclude Include="Warfare\cSpaceCombatMetrics.h" />
+    <ClInclude Include="Warfare\DebugWarfare.h" />
+    <ClInclude Include="Warfare\cWarfareStrengthAnalyzer.h" />
+    <ClInclude Include="Warfare\cEmpireWarfare.h" />
+    <ClInclude Include="Warfare\cPlanetAttackedEvent.h" />
+    <ClInclude Include="Warfare\cWarfareEventDispatcher.h" />
+    <ClInclude Include="Warfare\cWarfareEventListener.h" />
+    <ClInclude Include="Warfare\cWarfareSystem.h" />
+    <ClInclude Include="Warfare\cPlayerWarshipsManager.h" />
+    <ClInclude Include="Warfare\cToolInvasionStrategy.h" />
+    <ClInclude Include="Diplomacy\AffinityTextProc.h" />
+    <ClInclude Include="cCompositionRoot.h" />
+    <ClInclude Include="Diplomacy\cEmpireDiplomacyFactory.h" />
+    <ClInclude Include="Warfare\cEmpireWarfareFactory.h" />
+    <ClInclude Include="cPersistedEvent.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEvent.h" />
+    <ClInclude Include="Diplomacy\Config\cAffinityConfig.h" />
+    <ClInclude Include="Diplomacy\Config\cArchetypesConfig.h" />
+    <ClInclude Include="Diplomacy\Config\cDiplomacyConfig.h" />
+    <ClInclude Include="Warfare\Config\cWarfareConfig.h" />
+    <ClInclude Include="Warfare\Config\cArchetypeStrengthConfig.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEventManager.h" />
+    <ClInclude Include="Diplomacy\IAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cArchetypeAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cCommonEnemyAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cCommonAllyAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cWarWithAllyAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cDefeatedCommonEnemyAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cUpliftedByMonolithAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cMadePeaceAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cLongPeaceAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\AffinityModifier\cLongAllianceAffinityModifier.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cNeighborsInPeaceEvent.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cFormedAllianceEvent.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cDefeatedEnemyTogetherEvent.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cUpliftedByMonolithEvent.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cMadePeaceEvent.h" />
+    <ClInclude Include="Diplomacy\Config\cPersistedDiplomacyEventConfig.h" />
+    <ClInclude Include="Diplomacy\DiplomacyDetours.h" />
+    <ClInclude Include="cSimulationValidator.h" />
+    <ClInclude Include="cPersistedObject.h" />
+    <ClInclude Include="ISpaceTimeProvider.h" />
+    <ClInclude Include="cPersistenceState.h" />
+    <ClInclude Include="cDatabaseManager.h" />
+    <ClInclude Include="cPersistenceInjector.h" />
+    <ClInclude Include="Diplomacy\PersistedEvent\cPreparingToDeclareWarEvent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Diplomacy\cDiplomacySystem.cpp" />
+    <ClCompile Include="Diplomacy\DebugDiplomacy.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\EmpireUtils\EmpireUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\PlanetUtils\PlanetUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\SpiceUtils\SpiceUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\StarUtils\StarUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\TerraformingUtils\TerraformingUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\DiplomacyUtils\DiplomacyUtils.cpp" />
+    <ClCompile Include="Spore-Mod-Utils\ArchetypeUtils\ArchetypeUtils.cpp" />
+    <ClCompile Include="Diplomacy\AllianceEnemyButtonProc.cpp" />
+    <ClCompile Include="Diplomacy\cEmpireDiplomacy.cpp" />
+    <ClCompile Include="Diplomacy\cEmpireRelationsAnalyzer.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyEventDispatcher.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyEvent.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyEventListener.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyPopupManager.cpp" />
+    <ClCompile Include="Diplomacy\cEmpireRelationshipController.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyEffectInfoProvider.cpp" />
+    <ClCompile Include="Diplomacy\cDiplomacyEffectAnalyzer.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Warfare\cSpaceCombatMetrics.cpp" />
+    <ClCompile Include="Warfare\DebugWarfare.cpp" />
+    <ClCompile Include="Warfare\cWarfareStrengthAnalyzer.cpp" />
+    <ClCompile Include="Warfare\cEmpireWarfare.cpp" />
+    <ClCompile Include="Warfare\cPlanetAttackedEvent.cpp" />
+    <ClCompile Include="Warfare\cWarfareEventDispatcher.cpp" />
+    <ClCompile Include="Warfare\cWarfareEventListener.cpp" />
+    <ClCompile Include="Warfare\cWarfareSystem.cpp" />
+    <ClCompile Include="Warfare\cPlayerWarshipsManager.cpp" />
+    <ClCompile Include="Warfare\cToolInvasionStrategy.cpp" />
+    <ClCompile Include="Diplomacy\AffinityTextProc.cpp" />
+    <ClCompile Include="cCompositionRoot.cpp" />
+    <ClCompile Include="Diplomacy\cEmpireDiplomacyFactory.cpp" />
+    <ClCompile Include="Warfare\cEmpireWarfareFactory.cpp" />
+    <ClCompile Include="cPersistedEvent.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEvent.cpp" />
+    <ClCompile Include="Diplomacy\Config\cAffinityConfig.cpp" />
+    <ClCompile Include="Diplomacy\Config\cArchetypesConfig.cpp" />
+    <ClCompile Include="Diplomacy\Config\cDiplomacyConfig.cpp" />
+    <ClCompile Include="Warfare\Config\cArchetypeStrengthConfig.cpp" />
+    <ClCompile Include="Warfare\Config\cWarfareConfig.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cPersistedDiplomacyEventManager.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cArchetypeAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cCommonEnemyAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cCommonAllyAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cWarWithAllyAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cDefeatedCommonEnemyAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cUpliftedByMonolithAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cMadePeaceAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cLongPeaceAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\AffinityModifier\cLongAllianceAffinityModifier.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cNeighborsInPeaceEvent.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cFormedAllianceEvent.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cDefeatedEnemyTogetherEvent.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cUpliftedByMonolithEvent.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cMadePeaceEvent.cpp" />
+    <ClCompile Include="Diplomacy\Config\cPersistedDiplomacyEventConfig.cpp" />
+    <ClCompile Include="cSimulationValidator.cpp" />
+    <ClCompile Include="cPersistedObject.cpp" />
+    <ClCompile Include="cPersistenceState.cpp" />
+    <ClCompile Include="cDatabaseManager.cpp" />
+    <ClCompile Include="cPersistenceInjector.cpp" />
+    <ClCompile Include="Diplomacy\PersistedEvent\cPreparingToDeclareWarEvent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SdkPathConfig.props" />
+    <None Include="Spore-Mod-Utils\LICENSE" />
+    <None Include="Spore-Mod-Utils\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>Internal</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
