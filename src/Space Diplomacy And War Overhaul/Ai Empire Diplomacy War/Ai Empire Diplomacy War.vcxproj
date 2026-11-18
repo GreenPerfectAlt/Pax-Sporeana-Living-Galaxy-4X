@@ -46,7 +46,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SporeSdkPath)Spore ModAPI;$(SporeSdkPath)EASTL-3.02.01\test\packages\EABase\include\Common;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAAssert\include;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAStdC\include;$(SporeSdkPath)EASTL-3.02.01\include;$(SporeSdkPath)Detours\include\;$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(SporeLauncherPath)coreLibs;$(SporeSdkPath)Detours\lib.X86;$(SporeSdkPath)lib\Debug;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName)</TargetName>
+        <TargetName>PaxSporeana4X</TargetName>
     <OutDir>$(SporeLauncherPath)mLibs\</OutDir>
     <LocalDebuggerCommand>$(SporeLauncherPath)Spore ModAPI Launcher.exe</LocalDebuggerCommand>
     <LocalDebuggerWorkingDirectory>$(SporeLauncherPath)</LocalDebuggerWorkingDirectory>
@@ -56,7 +56,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SporeSdkPath)Spore ModAPI;$(SporeSdkPath)EASTL-3.02.01\test\packages\EABase\include\Common;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAAssert\include;$(SporeSdkPath)EASTL-3.02.01\test\packages\EAStdC\include;$(SporeSdkPath)EASTL-3.02.01\include;$(SporeSdkPath)Detours\include\;$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(SporeLauncherPath)coreLibs;$(SporeSdkPath)Detours\lib.X86;$(SporeSdkPath)lib\Release;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName)</TargetName>
+        <TargetName>PaxSporeana4X</TargetName>
     <OutDir>$(SporeLauncherPath)mLibs\</OutDir>
     <LocalDebuggerCommand>$(SporeLauncherPath)Spore ModAPI Launcher.exe</LocalDebuggerCommand>
     <LocalDebuggerWorkingDirectory>$(SporeLauncherPath)</LocalDebuggerWorkingDirectory>
@@ -322,6 +322,13 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerDefense\cPlayerDefensiveShipsManager.h" />
+    <ClInclude Include="Colonization\cEmpireColonizationManager.h" />
+    <ClInclude Include="Colonization\cEmpireTerraformingManager.h" />
+    <ClInclude Include="Colonization\cEcosystemCreaturesCache.h" />
+    <ClInclude Include="Colonization\SaicRemoveTribe.h" />
+    <ClInclude Include="Colonization\DebugAiColonization.h" />
+    <ClInclude Include="Colonization\Config\cPreSpaceColonizationConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cCompositionRoot.cpp">
@@ -546,6 +553,13 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerDefense\cPlayerDefensiveShipsManager.cpp" />
+    <ClCompile Include="Colonization\cEmpireColonizationManager.cpp" />
+    <ClCompile Include="Colonization\cEmpireTerraformingManager.cpp" />
+    <ClCompile Include="Colonization\cEcosystemCreaturesCache.cpp" />
+    <ClCompile Include="Colonization\SaicRemoveTribe.cpp" />
+    <ClCompile Include="Colonization\DebugAiColonization.cpp" />
+    <ClCompile Include="Colonization\Config\cPreSpaceColonizationConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SdkPathConfig.props" />

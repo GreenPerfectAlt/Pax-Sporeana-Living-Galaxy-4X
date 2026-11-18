@@ -32,6 +32,12 @@
 #include "cPersistenceState.h"
 #include "cDatabaseManager.h"
 #include "Diplomacy/PersistedEvent/cPreparingToDeclareWarEvent.h"
+#include "PlayerDefense/cPlayerDefensiveShipsManager.h"
+#include "Colonization/cEmpireColonizationManager.h"
+#include "Colonization/cEmpireTerraformingManager.h"
+#include "Colonization/cEcosystemCreaturesCache.h"
+#include "Colonization/SaicRemoveTribe.h"
+#include "Colonization/DebugAiColonization.h"
 #include <EASTL/map.h>
 #include <EASTL/set.h>
 #include <cmath>
@@ -626,10 +632,18 @@ void Initialize()
 	ClassManager.AddFactory(new cPreparingForWarEventFactory());
 
 	cSimulatorSystem::Get()->AddStrategy(new cOrbitalVisualsStrategy(), cOrbitalVisualsStrategy::NOUN_ID);
+	cSimulatorSystem::Get()->AddStrategy(new cPlayerDefensiveShipsManager(), cPlayerDefensiveShipsManager::NOUN_ID);
+	cSimulatorSystem::Get()->AddStrategy(new cEmpireColonizationManager(), cEmpireColonizationManager::NOUN_ID);
+	cSimulatorSystem::Get()->AddStrategy(new cEmpireTerraformingManager(), cEmpireTerraformingManager::NOUN_ID);
+	cSimulatorSystem::Get()->AddStrategy(new cEcosystemCreaturesCache(), cEcosystemCreaturesCache::NOUN_ID);
+
+	CheatManager.AddCheat("SaicRemoveTribe", new SaicRemoveTribe());
+	CheatManager.AddCheat("DebugAiColonization", new DebugAiColonization());
 
 	sConvoyLootListener = new cTradeConvoyLootListener();
 	MessageManager.AddListener(sConvoyLootListener.get(), SimulatorMessages::kMsgCombatantKilled);
 }
+
 
 void Dispose()
 {
@@ -1292,7 +1306,16 @@ member_detour(GenerateNpcPlanetDefenders__detour, cSimPlanetHighLOD, void(cPlane
 		sShamanWardenSummonedThisVisit = false;
 		sActiveTradeFreighters.clear();
 		ClearScaledOrbitalShips();
-		original_function(this, planet);
+
+		bool isPlayerOwnedPlanet = IsSpaceGame() && planet && planet->mpPlanetRecord &&
+			planet->mpPlanetRecord->GetStarRecord() &&
+			planet->mpPlanetRecord->GetStarRecord()->mEmpireID == GetPlayerEmpireID();
+
+		if (isPlayerOwnedPlanet && cPlayerDefensiveShipsManager::Get() != nullptr) {
+			cPlayerDefensiveShipsManager::Get()->ManagePlanetDefenders(planet->mpPlanetRecord.get());
+		} else {
+			original_function(this, planet);
+		}
 
 		if (IsSpaceGame() && planet && planet->mpPlanetRecord) {
 			cCompositionRoot* root = cCompositionRoot::Get();
@@ -1554,8 +1577,37 @@ member_detour(NpcToolOnHit__detour, cToolStrategy, bool(cSpaceToolData*, const M
 	bool detoured(cSpaceToolData* pTool, const Math::Vector3& position, SpaceToolHit hitType, int unk)
 	{
 		bool res = original_function(this, pTool, position, hitType, unk);
+		if (cPlayerDefensiveShipsManager::Get() != nullptr) {
+			cPlayerDefensiveShipsManager::Get()->OnPlayerToolUsed(pTool);
+		}
 		HandlePlayerToolOnNpcPlanet(pTool);
 		return res;
+	}
+};
+
+member_detour(PlayerToolWhileFiring__detour, cToolStrategy, bool(cSpaceToolData*, const Math::Vector3&, int))
+{
+	bool detoured(cSpaceToolData* pTool, const Math::Vector3& aimPoint, int unk)
+	{
+		bool res = original_function(this, pTool, aimPoint, int(unk));
+		if (cPlayerDefensiveShipsManager::Get() != nullptr) {
+			cPlayerDefensiveShipsManager::Get()->OnPlayerToolUsed(pTool);
+		}
+		return res;
+	}
+};
+
+member_detour(GetCreatures__detour, Simulator::cStarManager, void(eastl::vector<ResourceKey>*, int, int, int, int, eastl::vector<ResourceKey>*))
+{
+	void detoured(eastl::vector<ResourceKey>* a, int b, int c, int d, int e, eastl::vector<ResourceKey>* f)
+	{
+		cEcosystemCreaturesCache* creaturesCache = cEcosystemCreaturesCache::Get();
+		if (IsSpaceGame() && creaturesCache != nullptr && creaturesCache->cacheReady) {
+			eastl::vector<ResourceKey>* cachedCreatures = creaturesCache->ReturnElement();
+			original_function(this, cachedCreatures, b, c, d, e, f);
+		} else {
+			original_function(this, a, b, c, d, e, f);
+		}
 	}
 };
 
@@ -1574,6 +1626,8 @@ void AttachDetours()
 	SpawnUFO__detour::attach(Address(ModAPI::ChooseAddress(0x0102bbb0, 0x0102acc0)));
 	GenerateNpcPlanetDefenders__detour::attach(Address(ModAPI::ChooseAddress(0x00ffa340, 0x00ff96b0)));
 	NpcToolOnHit__detour::attach(GetAddress(cToolStrategy, OnHit));
+	PlayerToolWhileFiring__detour::attach(GetAddress(cToolStrategy, WhileFiring));
+	GetCreatures__detour::attach(Address(ModAPI::ChooseAddress(0x00BABC40, 0x00BACE60)));
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule,

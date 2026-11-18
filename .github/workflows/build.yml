@@ -11,38 +11,6 @@ env:
   SPORE_MODAPI_FILE: 'SporeModAPIdlls.zip'
 
 jobs:
-  find-package-projects:
-    name: Find SMFX Package Projects
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.projects-scan.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Scan for non-empty projects in data folder
-        id: projects-scan
-        run: |
-          directories=""
-          index=0
-
-          if [ -d "data/" ]; then
-            while read dir; do
-                subdir_count=$(find "$dir" -mindepth 1 -maxdepth 1 -type d | wc -l)
-
-                if [ "$subdir_count" -gt 0 ]; then
-                    if [ ! -z "$directories" ]; then
-                        directories="$directories, "
-                    fi
-                    directories="$directories {\"dir\": \"$dir\", \"index\": $index}"
-                    index=$((index + 1))
-                fi
-            done < <(find "data/" -mindepth 1 -maxdepth 1 -type d)
-          fi
-
-          directories="matrix={ \"project\": [ $directories ] }"
-          echo "$directories"
-          echo "$directories" >> $GITHUB_OUTPUT
-
   find-cpp-projects:
     name: Find C++ Projects
     runs-on: ubuntu-latest
@@ -70,51 +38,6 @@ jobs:
           solutions="matrix={ \"solution\": [ $solutions ] }"
           echo "$solutions"
           echo "$solutions" >> $GITHUB_OUTPUT
-
-  build-packages:
-    name: Build Project .package
-    needs: find-package-projects
-    runs-on: ubuntu-latest
-    if: ${{ toJSON(fromJSON(needs.find-package-projects.outputs.matrix).project) != '[]' }}
-    strategy:
-      matrix: ${{ fromJSON(needs.find-package-projects.outputs.matrix) }}
-    steps:
-      - run: echo "Building Package for Project ${{ matrix.project.dir }}"
-
-      - uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-          java-package: 'jre'
-
-      - name: Setup SMFX
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: 'emd4600/SporeModder-FX'
-          tag: v2.2.24
-          fileName: ${{ env.SPORE_MODDER_FX_FILE }}
-          tarBall: false
-          zipBall: false
-          out-file-path: ''
-          extract: true
-
-      - run: mkdir -p Packages
-
-      - name: Build SMFX Project
-        run: |
-          cd "SporeModder FX"
-          java -jar SporeModderFX.jar pack "../${{ matrix.project.dir }}" "../Packages/"
-
-      - name: Upload Packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: 'packages${{ matrix.project.index }}'
-          retention-days: 1
-          compression-level: 0
-          path: Packages/*
 
   build-dlls:
     name: Build C++ Project DLL
@@ -183,12 +106,101 @@ jobs:
 
   build-sporemod:
     name: Build Sporemod
-    needs: [ build-packages, build-dlls ]
+    needs: [ build-dlls ]
     if: always() && !cancelled() && !contains(needs.*.result, 'failure')
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+
+      - run: mkdir -p "${{ github.workspace }}/Sporemod"
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: ${{ github.workspace }}/Sporemod
+          merge-multiple: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          java-package: 'jre'
+
+      - name: Setup SMFX
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: 'emd4600/SporeModder-FX'
+          tag: v2.2.24
+          fileName: ${{ env.SPORE_MODDER_FX_FILE }}
+          tarBall: false
+          zipBall: false
+          out-file-path: ''
+          extract: true
+
+      - name: Build Configuration Packages
+        run: |
+          for dir in data/*; do
+            if [ -d "$dir" ] && [ "$(find "$dir" -mindepth 1 -maxdepth 1 -type d | wc -l)" -gt 0 ]; then
+              (cd "SporeModder FX" && java -jar SporeModderFX.jar pack "../$dir" "${{ github.workspace }}/Sporemod/")
+            fi
+          done
+
+          mkdir -p config_fleet/SpaceCombat~
+          for mult in 0.2 0.5 1.0 1.3 1.5; do
+            tag=$(echo "$mult" | tr -d '.')
+            printf "float 0x07A1BC01 %s\n" "$mult" > config_fleet/SpaceCombat~/FleetConfig.prop.txt
+            java -jar "SporeModder FX/SporeModderFX.jar" pack config_fleet "${{ github.workspace }}/Sporemod/Fleet_${tag}x.package"
+          done
+
+          mkdir -p config_rebel/SpaceCombat~
+          printf "float 0x07A1BC02 0.0\nfloat 0x07A1BC0F 0.0\nfloat 0x07A1BC10 0.0\nfloat 0x07A1BC11 999.0\n" > config_rebel/SpaceCombat~/RebellionConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_rebel "${{ github.workspace }}/Sporemod/Rebel_00x.package"
+          printf "float 0x07A1BC02 0.5\nfloat 0x07A1BC0F 120.0\nfloat 0x07A1BC10 300.0\nfloat 0x07A1BC11 8.0\n" > config_rebel/SpaceCombat~/RebellionConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_rebel "${{ github.workspace }}/Sporemod/Rebel_05x.package"
+          printf "float 0x07A1BC02 1.0\nfloat 0x07A1BC0F 240.0\nfloat 0x07A1BC10 180.0\nfloat 0x07A1BC11 6.0\n" > config_rebel/SpaceCombat~/RebellionConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_rebel "${{ github.workspace }}/Sporemod/Rebel_10x.package"
+          printf "float 0x07A1BC02 2.0\nfloat 0x07A1BC0F 360.0\nfloat 0x07A1BC10 110.0\nfloat 0x07A1BC11 5.0\n" > config_rebel/SpaceCombat~/RebellionConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_rebel "${{ github.workspace }}/Sporemod/Rebel_20x.package"
+
+          mkdir -p config_upkeep/SpaceCombat~
+          printf "float 0x07A1BC03 0.0\nfloat 0x07A1BC05 180.0\n" > config_upkeep/SpaceCombat~/UpkeepConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_upkeep "${{ github.workspace }}/Sporemod/Upkeep_00x.package"
+          printf "float 0x07A1BC03 0.5\nfloat 0x07A1BC05 240.0\n" > config_upkeep/SpaceCombat~/UpkeepConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_upkeep "${{ github.workspace }}/Sporemod/Upkeep_05x.package"
+          printf "float 0x07A1BC03 1.0\nfloat 0x07A1BC05 180.0\n" > config_upkeep/SpaceCombat~/UpkeepConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_upkeep "${{ github.workspace }}/Sporemod/Upkeep_10x.package"
+          printf "float 0x07A1BC03 2.0\nfloat 0x07A1BC05 120.0\n" > config_upkeep/SpaceCombat~/UpkeepConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_upkeep "${{ github.workspace }}/Sporemod/Upkeep_20x.package"
+
+          mkdir -p config_unrest/SpaceCombat~
+          for mult in 0.0 0.5 1.0 2.0; do
+            tag=$(echo "$mult" | tr -d '.')
+            printf "float 0x07A1BC04 %s\n" "$mult" > config_unrest/SpaceCombat~/UnrestConfig.prop.txt
+            java -jar "SporeModder FX/SporeModderFX.jar" pack config_unrest "${{ github.workspace }}/Sporemod/Unrest_${tag}x.package"
+          done
+
+          mkdir -p config_gadget/SpaceCombat~
+          printf "float 0x07A1BC06 0.0\nfloat 0x07A1BC12 0.0\nfloat 0x07A1BC13 0.0\nfloat 0x07A1BC14 0.0\nfloat 0x07A1BC15 0.0\nfloat 0x07A1BC16 0.0\nfloat 0x07A1BC17 0.0\n" > config_gadget/SpaceCombat~/GadgetConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_gadget "${{ github.workspace }}/Sporemod/Gadget_00x.package"
+          printf "float 0x07A1BC06 0.5\nfloat 0x07A1BC12 0.22\nfloat 0x07A1BC13 0.15\nfloat 0x07A1BC14 30.0\nfloat 0x07A1BC15 0.03\nfloat 0x07A1BC16 25.0\nfloat 0x07A1BC17 0.18\n" > config_gadget/SpaceCombat~/GadgetConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_gadget "${{ github.workspace }}/Sporemod/Gadget_05x.package"
+          printf "float 0x07A1BC06 1.0\nfloat 0x07A1BC12 0.38\nfloat 0x07A1BC13 0.30\nfloat 0x07A1BC14 60.0\nfloat 0x07A1BC15 0.06\nfloat 0x07A1BC16 45.0\nfloat 0x07A1BC17 0.35\n" > config_gadget/SpaceCombat~/GadgetConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_gadget "${{ github.workspace }}/Sporemod/Gadget_10x.package"
+          printf "float 0x07A1BC06 1.5\nfloat 0x07A1BC12 0.52\nfloat 0x07A1BC13 0.45\nfloat 0x07A1BC14 90.0\nfloat 0x07A1BC15 0.09\nfloat 0x07A1BC16 65.0\nfloat 0x07A1BC17 0.50\n" > config_gadget/SpaceCombat~/GadgetConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_gadget "${{ github.workspace }}/Sporemod/Gadget_15x.package"
+
+          mkdir -p config_trade/SpaceCombat~
+          printf "float 0x07A1BC07 0.0\nfloat 0x07A1BC08 0.0\nfloat 0x07A1BC09 0.0\nfloat 0x07A1BC0A 1.0\nfloat 0x07A1BC0B 2.0\nfloat 0x07A1BC0C 0.0\nfloat 0x07A1BC0D 1.0\nfloat 0x07A1BC0E 0.0\n" > config_trade/SpaceCombat~/TradeConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_trade "${{ github.workspace }}/Sporemod/Trade_00x.package"
+          printf "float 0x07A1BC07 0.5\nfloat 0x07A1BC08 0.7\nfloat 0x07A1BC09 0.6\nfloat 0x07A1BC0A 3.0\nfloat 0x07A1BC0B 2.0\nfloat 0x07A1BC0C 0.6\nfloat 0x07A1BC0D 1.20\nfloat 0x07A1BC0E 0.06\n" > config_trade/SpaceCombat~/TradeConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_trade "${{ github.workspace }}/Sporemod/Trade_05x.package"
+          printf "float 0x07A1BC07 1.0\nfloat 0x07A1BC08 1.0\nfloat 0x07A1BC09 1.0\nfloat 0x07A1BC0A 5.0\nfloat 0x07A1BC0B 2.0\nfloat 0x07A1BC0C 1.0\nfloat 0x07A1BC0D 1.35\nfloat 0x07A1BC0E 0.10\n" > config_trade/SpaceCombat~/TradeConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_trade "${{ github.workspace }}/Sporemod/Trade_10x.package"
+          printf "float 0x07A1BC07 1.5\nfloat 0x07A1BC08 1.5\nfloat 0x07A1BC09 1.5\nfloat 0x07A1BC0A 8.0\nfloat 0x07A1BC0B 2.0\nfloat 0x07A1BC0C 1.5\nfloat 0x07A1BC0D 1.45\nfloat 0x07A1BC0E 0.14\n" > config_trade/SpaceCombat~/TradeConfig.prop.txt
+          java -jar "SporeModder FX/SporeModderFX.jar" pack config_trade "${{ github.workspace }}/Sporemod/Trade_15x.package"
+
       - name: Find latest ModAPI DLLs build
         id: find-latest-dlls-build
         uses: oprypin/find-latest-tag@v1
@@ -203,15 +215,6 @@ jobs:
             version_text=${version_text:1}
           fi
           echo "SPOREMOD_DLLS_BUILD=$version_text" >> $GITHUB_ENV
-
-      - uses: actions/checkout@v4
-
-      - run: mkdir -p "${{ github.workspace }}/Sporemod"
-
-      - uses: actions/download-artifact@v4
-        with:
-          path: ${{ github.workspace }}/Sporemod
-          merge-multiple: true
 
       - name: Check if version tag is experimental
         id: test_experimental

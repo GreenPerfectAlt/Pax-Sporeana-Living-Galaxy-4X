@@ -1,0 +1,29 @@
+int32 colonizationCycleInterval 120000 # 2 minutes.
+int32 terraformingCycleInterval 300000 # 5 minutes.
+float targetNumSystems 13.0
+floats empireColonizationRange
+	3.0
+	5.0
+	5.5
+	6.0
+	7.0
+end
+
+int32 levelToDecreaseAtmosphere 0
+int32 levelToIncreaseAtmosphere 1
+int32 levelToDecreaseTemperature 2
+int32 levelToIncreaseTemperature 3
+
+bool playerEmpireExpansionEnabled false
+
+key speedConfig SaicConfig!SpeedConfig.prop
+
+key radiousConfig SaicConfig!RadiousConfig.prop
+
+key intraSystemPlanetColonizationConfig SaicConfig!IntraSystemColonizationConfig.prop
+
+key terraformingConfig SaicConfig!TerraformingConfig.prop
+
+key terraformingSpeedConfig SaicConfig!TerraformingSpeedConfig.prop
+
+key preSpaceColonizationConfig SaicConfig!PreSpaceColonizationConfig.prop
