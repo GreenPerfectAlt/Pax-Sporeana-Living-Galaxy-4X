@@ -141,7 +141,12 @@ jobs:
         run: |
           for dir in data/*; do
             if [ -d "$dir" ] && [ "$(find "$dir" -mindepth 1 -maxdepth 1 -type d | wc -l)" -gt 0 ]; then
-              (cd "SporeModder FX" && java -jar SporeModderFX.jar pack "../$dir" "${{ github.workspace }}/Sporemod/")
+              pkg_name=$(basename "$dir")
+              if [ -f "$dir/config.properties" ]; then
+                prop_val=$(grep -E '^packageName=' "$dir/config.properties" | cut -d'=' -f2 | tr -d '\r\n')
+                if [ -n "$prop_val" ]; then pkg_name="$prop_val"; fi
+              fi
+              (cd "SporeModder FX" && java -jar SporeModderFX.jar pack "../$dir" "${{ github.workspace }}/Sporemod/${pkg_name}.package")
             fi
           done
 
